@@ -5,7 +5,8 @@ Plant UML diagrams of basic SLAM software.
 
 * [About this repository](#about-this-repository)
 * [Reference](#reference)
-* [Diagrams list](#diagrams-list)
+* [Overview of system](#overview-of-system)
+* [Program composition](#program-composition)
 * [Author](#author)
 
 ## About this repository
@@ -40,13 +41,58 @@ map -> vw
 Each node has a the following content.  
 
 |Node|Content|
-|---|---|
+|----|-------|
 |Sensor data|Scan data, Odometry|
 |SLAM|Scan Matching, Sensor Fusion, Loop Closure|
 |Map data|2D Point Cloud, Robot trajectory|
 |Viewer|Animation|
 
-## Diagrams list 
+## Program composition
+
+* Main components
+
+|Program name|Content|
+|------------|-------|
+|main|Main function|
+|SlamLauncher|To launch SLAM|
+|SensorDataReader|To read sensor data|
+|MapDrawer|Helper to draw by gnuplot|
+|FrameworkCustomizer|Helper to cutomize program|
+|SlamFrontEnd|Frontend process of SLAM|
+|SlamBackEnd|Backend process of SLAM|
+|LoopDetector|To detect loop|
+|ScanMatcher2D|To supervise Scan matching|
+|RefScanMaker|To generate reference scan|
+|PoseEstimatorICP|To calculate robot position by ICP|
+|DataAssociator|To associate data|
+|PoseOptimizer|To minimize cost function|
+|CostFunction|Cost function|
+|PointCloudMap|To manage point cloud map|
+|ScanPointResampler|To equalize space between scan point|
+|ScanPointAnalyzer|To calculate normal vector of scan point|
+|CovarianceCalculator|To calculate covariance|
+|PoseFuser|Sensor fusion|
+
+* Utility and class definition
+
+|Program name|Content|
+|------------|-------|
+|MyUtil|Basic type and utility function|
+|Pose2D|Class definition of robot position|
+|LPoint2D|Class definition of scan point|
+|Scan2D|Class definition of scan|
+|NNGridTable|Data association table|
+|PoseGraph|Class definition of pose graph|
+|P2oDriver2D|To launch pose adjustment|
+
+* Customized class by derivation
+
+|Program name|Content|
+|------------|-------|
+|RefScanMakerBS|To refer just before scan|
+|RefScanMakerLM|To refer local map data|
+|CostFunctionED|Euclid distance is used as cost function|
+|CostFunctionPD|Perpendicular distance is used as cost function|
 
 ## Author
 

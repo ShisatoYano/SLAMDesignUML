@@ -21,11 +21,30 @@ This book introduces a technology of localization and mapping by SLAM
 and a sample code of them. They are written in C++.    
 I refer to those programs and drew a UML diagram of them.  
 
-## Overview of SLAM
+## Overview of system
 
 This system is 2D-SLAM with LiDAR.  
 Every time the sensing data from LiDAR is input,  
-this system execute SLAM and output a map data per scan.  
+this system execute SLAM and output a map data as follow.  
+
+```puml
+usecase (Sensor data) as sns
+usecase (SLAM) as slam
+usecase (Map data) as map
+usecase (Viewer) as vw
+sns -> slam
+slam -> map
+map -> vw
+```
+
+Each node has a the following content.  
+
+|Node|Content|
+|---|---|
+|Sensor data|Scan data, Odometry|
+|SLAM|Scan Matching, Sensor Fusion, Loop Closure|
+|Map data|2D Point Cloud, Robot trajectory|
+|Viewer|Animation|
 
 ## Diagrams list 
 

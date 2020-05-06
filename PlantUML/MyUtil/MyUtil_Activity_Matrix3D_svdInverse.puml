@@ -1,0 +1,54 @@
+@startuml
+
+/'
+    Calculate inverse matrix with SVD.
+    SVD: Singular Value Decomposition
+    input: const Matrix3D &A
+    return: Eigen::Matrix3D IA
+'/
+
+(*) --> "size_t m = A.rows()"
+--> "size_t n = A.cols()"
+--> "JacobiSVD<MatrixXd> svd(A, ComputeThinU | ComputeThinV)"
+--> "MatrixXd eU = svd.matrixU()"
+--> "MatrixXd eV = svd.matrixV()"
+--> "VectorXd eS = svd.singularValues()"
+--> "MatrixXd M1(m, n)"
+
+--> "Loop(size_t i: 0 ~ n)"
+if "i < n" as judge_i then
+    --> [Yes] "Loop(size_t j: 0 ~ n)"
+    if "j < n" as judge_j then
+        --> [Yes] "M1(i, j) = eU(j, i)/eS[i]"
+        --> judge_j
+    else
+        -right-> [No] "Loop j finish"
+        -left-> judge_i
+    endif
+else
+    --> [No] "Loop i finish"
+endif
+
+--> "Matrix3d IA"
+--> "Loop(size_t ii: 0 ~ n)"
+if "ii < n" as judge_ii then
+    --> [Yes] "Loop(size_t jj: 0 ~ n)"
+    if "jj < n" as judge_jj then
+        --> [Yes] "IA(ii, jj) = 0"
+        --> "Loop(size_t k: 0 ~ n)"
+        if "k < n" as judge_k then
+            --> [Yes] "IA(ii, jj) += eV(ii, k) * M1(k, jj)"
+            --> judge_k
+        else
+            -right-> [No] "Loop k finish"
+            --> judge_jj
+    else
+        judge_jj -right-> [No] "Loop jj finish"
+        --> judge_ii
+else
+    judge_ii --> [No] "Loop ii finish"
+
+--> "return IA"
+--> (*)
+
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+
+/'
+    Addition angle and normalization from -180 to 180
+    input1: int a1
+    input1: int a2
+    return int sum
+'/
+
+(*) --> "sum = a1 + a2"
+
+if "sum < -180 ?" then
+    --> [Yes] "sum += 360"
+    --> "return sum"
+else
+    --> [No] if "sum >= 180 ?" then
+        --> [Yes] "sum -= 360"
+        --> "return sum"
+    else
+        --> [No] "Do nothing"
+        --> "return sum"
+    endif
+endif
+
+--> (*)
+
+@enduml

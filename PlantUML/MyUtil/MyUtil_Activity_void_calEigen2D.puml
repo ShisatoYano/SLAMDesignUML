@@ -1,0 +1,16 @@
+@startuml
+
+/'
+    Eigenvalue decomposition for 2D square matrix
+    input1: double (*mat)[2]
+    input2: double *vals
+    input3: double *vec1
+    input4: double *vec2
+'/
+
+(*) --> "double a = mat[0][0]"
+--> "double b = mat[0][1]"
+--> "double c = mat[1][0]"
+--> "double d = mat[1][1]"
+
+@enduml

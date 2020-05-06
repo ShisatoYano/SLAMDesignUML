@@ -94,6 +94,11 @@ Each node has a the following content.
 |PointCloudMapLP|Partial map management by Grid table|
 |LoopDetectorSS|To detect loop by partial map|
 
+* Vertical arrow means a function is called.
+* Horizontal arrow means a process sequence.
+
+![](Images/ProgramComposition.png)
+
 ## Author
 
 * [Shisato Yano](https://github.com/ShisatoYano)

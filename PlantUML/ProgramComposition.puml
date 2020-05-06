@@ -1,0 +1,41 @@
+@startuml
+
+hide circle
+hide method
+
+class main
+class SlamLauncher
+class SlamFrontEnd
+class FrameworkCustomizer
+class SensorDataReader
+class MapDrawer
+class ScanMatcher2D
+class LoopDetector
+class SlamBackEnd
+class RefScanMaker
+class PoseEstimatorICP
+class PoseFuser
+class PointCloudMap
+class DataAssociator
+class PoseOptimizer
+class CovarianceCalculator
+class CostFunction
+
+main --> SlamLauncher
+SlamLauncher --> SlamFrontEnd
+SlamLauncher --> FrameworkCustomizer
+SlamLauncher --> SensorDataReader
+SlamLauncher --> MapDrawer
+SlamFrontEnd --> ScanMatcher2D
+ScanMatcher2D -> LoopDetector
+LoopDetector -> SlamBackEnd
+ScanMatcher2D --> RefScanMaker
+RefScanMaker -> PoseEstimatorICP
+PoseEstimatorICP -> PoseFuser
+PoseFuser -> PointCloudMap
+PoseEstimatorICP --> PoseOptimizer
+DataAssociator -> PoseOptimizer
+PoseFuser --> CovarianceCalculator
+PoseOptimizer --> CostFunction
+
+@enduml

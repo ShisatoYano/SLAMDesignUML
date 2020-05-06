@@ -28,15 +28,7 @@ This system is 2D-SLAM with LiDAR.
 Every time the sensing data from LiDAR is input,  
 this system execute SLAM and output a map data as follow.  
 
-```puml
-usecase (Sensor data) as sns
-usecase (SLAM) as slam
-usecase (Map data) as map
-usecase (Viewer) as vw
-sns -> slam
-slam -> map
-map -> vw
-```
+![](Images/SystemOverview.png)
 
 Each node has a the following content.  
 

@@ -1,0 +1,9 @@
+@startuml
+usecase (Sensor data) as sns
+usecase (SLAM) as slam
+usecase (Map data) as map
+usecase (Viewer) as vw
+sns -> slam
+slam -> map
+map -> vw
+@enduml

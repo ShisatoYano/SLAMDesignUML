@@ -93,6 +93,14 @@ Each node has a the following content.
 |RefScanMakerLM|To refer local map data|
 |CostFunctionED|Euclid distance is used as cost function|
 |CostFunctionPD|Perpendicular distance is used as cost function|
+|PoseOptimizerSD|Optimization by Steepest descent|
+|PoseOptimizerSL|Optimization by Steepest descent and Line search|
+|DataAssociatorLS|Data association by Linear search|
+|DataAssociatorGT|Data association by Grid table|
+|PointCloudMapBS|Point cloud map management by saving all of scan points|
+|PointCloudMapGT|Point cloud map management by Grid table|
+|PointCloudMapLP|Partial map management by Grid table|
+|LoopDetectorSS|To detect loop by partial map|
 
 ## Author
 

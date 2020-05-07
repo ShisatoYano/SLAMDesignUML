@@ -1,0 +1,41 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+!include ../MyUtil/MyUtil_Class.puml
+!include ../LPoint2D/LPoint2D_Class.puml
+
+class Pose2D <<struct>>{
+    double tx /' translation x '/
+    double ty /' translation y '/
+    double th /' rotation angle[deg] '/
+    double Rmat[2][2] /' rotation matrix 2x2 '/
+
+    Pose2D() : tx(0), ty(0), th(0)
+    Pose2D(double tx, double ty, double th)
+    Pose2D(double mat[2][2], double tx, double ty, double th)
+    void reset()
+    void setVal(double x, double y, double a)
+    void calRmat()
+    void setTranslation(double tx, double ty)
+    void setAngle(double th)
+    LPoint2D relativePoint(const LPoint2D &p) const
+    LPoint2D globalPoint(const LPoint2D &p) const
+    void globalPoint(const LPoint2D &pi, LPoint2D &po) const;
+    static void calRelativePose(const Pose2D &npose, const Pose2D &bpose, Pose2D &relPose);
+    static void calGlobalPose(const Pose2D &relPose, const Pose2D &bpose, Pose2D &npose);
+}
+
+class PoseCov <<struct>>{
+    Pose2D pose
+    Eigen::Matrix3d cov
+    PoseCov()
+    PoseCov(Pose2D &p, Eigen::Matrix3d &c)
+}
+
+Pose2D -> MyUtil
+Pose2D --> LPoint2D
+
+PoseCov -o Pose2D
+
+@enduml

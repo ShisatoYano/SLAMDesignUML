@@ -2,9 +2,12 @@
 
 skinparam classAttributeIconSize 0
 
+!define M_PI 3.14159265358979
+!define NULL 0
+!define DEG2RAD(x) ((x) * M_PI / 180)
+!define RAD2DEG(x) ((x) * 180 / M_PI)
+
 class MyUtil{
-    DEG2RAD(x)
-    RAD2DEG(x)
     {static} + int add(int a1, int a2)
     {static} + double add(double a1, double a2)
     {static} + double addR(double a1, double a2)

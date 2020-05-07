@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    input1: double tx
+    input2: double ty
+'/
+
+(*) --> "this->tx\nthis->ty"
+--> (*)
+
+@enduml

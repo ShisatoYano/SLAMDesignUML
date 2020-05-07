@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    transform point p from local to global coordinate
+    input1: const LPoint2D &pi
+    input2: LPoint2D &po
+'/
+
+(*) --> "po.x = Rmat[0][0] * pi.x + Rmat[0][1] * pi.y + tx"
+--> "po.y = Rmat[1][0] * pi.x + Rmat[1][1] * pi.y + ty"
+--> (*)
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+/'
+    transform point p from global to local coordinate
+    input: const LPoint2D &p
+    return: LPoint2D
+'/
+
+(*) --> "double dx = p.x - tx\ndouble dy = p.y - ty"
+--> "double x = dx * Rmat[0][0] + dy * Rmat[1][0]"
+--> "double y = dx * Rmat[0][1] + dy * Rmat[1][1]"
+--> "return LPoint2D(p.sid, x, y)"
+--> (*)
+
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+
+(*) --> "double a = DEG2RAD(th)"
+--> "Rmat[0][0] = Rmat[1][1] = cos(a)\nRmat[1][0] = sin(a)\nRmat[0][1] = -Rmat[1][0]"
+--> (*)
+
+@enduml

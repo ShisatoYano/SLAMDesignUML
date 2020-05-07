@@ -1,0 +1,10 @@
+@startuml
+
+/'
+    input: double th
+'/
+
+(*) --> "this->th = th"
+--> (*)
+
+@enduml

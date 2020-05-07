@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    input1: double x
+    input2: double y
+    input3: double a
+'/
+
+(*) --> "tx = x\nty = y\nth = a"
+--> "calRmat()"
+--> (*)
+
+@enduml

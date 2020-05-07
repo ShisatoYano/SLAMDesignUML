@@ -1,0 +1,19 @@
+@startuml
+
+(*) --> "Loop(size_t i: 0 ~ 2)"
+if "i < 2" as judge_i then
+    --> [Yes] "Loop(size_t j: 0 ~ 2)"
+    if "j < 2" as judge_j then
+        --> [Yes] "Rmat[i][j] = (i==j)? 1.0:0.0"
+        --> judge_j
+    else
+        -right-> [No] "Loop j finish"
+        -left-> judge_i
+    endif
+else
+    --> [No] "Loop i finish"
+endif
+
+"Loop i finish" --> (*)
+
+@enduml

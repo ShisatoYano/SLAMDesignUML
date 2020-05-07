@@ -1,0 +1,27 @@
+@startuml
+
+/'
+    input1: double mat[2][2]
+    input2: double tx
+    input3: double ty
+    input4: double th
+'/
+
+(*) --> "Loop(size_t i: 0 ~ 2)"
+if "i < 2" as judge_i then
+    --> [Yes] "Loop(size_t j: 0 ~ 2)"
+    if "j < 2" as judge_j then
+        --> [Yes] "Rmat[i][j] = mat[i][j]"
+        --> judge_j
+    else
+        -right-> [No] "Loop j finish"
+        -left-> judge_i
+    endif
+else
+    --> [No] "Loop i finish"
+endif
+
+"Loop i finish" --> "this->tx = tx\nthis->ty = ty\nthis->th = th"
+--> (*)
+
+@enduml

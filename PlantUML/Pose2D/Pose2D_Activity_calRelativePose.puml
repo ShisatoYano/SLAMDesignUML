@@ -1,0 +1,30 @@
+@startuml
+
+/'
+    calculate relative pose of current pose from origin
+    input1: const Pose2D &npose
+    input2: const Pose2D &bpose
+    input3: Pose2D &relPose
+'/
+
+(*) --> "const double (*R0)[2] = bpose.Rmat\nconst double (*R1)[2] = npose.Rmat"
+--> "double (*R2)[2] = relPose.Rmat"
+--> "double dx = npose.tx - bpose.tx\ndouble dy = npose.ty - bpose.ty"
+--> "relPose.tx = R0[0][0] * dx + R0[1][0] * dy\nrelPose.ty = R0[0][1] * dx + R0[1][1] * dy"
+--> "double th = npose.th - bpose.th"
+--> if "th < -180" then
+        --> [Yes] "th += 360"
+        --> "relPose.th = th"
+    else
+        --> [No] if "th >= 180" then
+                    --> [Yes] "th -= 360"
+                    --> "relPose.th = th"
+                 else
+                    --> [No] "Do nothing"
+                    --> "relPose.th = th"
+                 endif
+    endif
+"relPose.th = th" --> "relPose.calRmat()"
+--> (*)
+
+@enduml

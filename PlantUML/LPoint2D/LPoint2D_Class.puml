@@ -1,0 +1,39 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class Vector2D <<struct>>{
+    double x
+    double y
+}
+
+enum ptype{
+    UNKNOWN = 0
+    LINE = 1
+    CORNER = 2
+    ISOLATE = 3
+}
+
+class LPoint2D <<struct>>{
+    int sid
+    double x
+    double y
+    double nx
+    double ny
+    double atd
+    ptype type
+
+    LPoint2D()
+    LPoint2D(int id, double _x, double _y)
+    void init()
+    void setData(int id, double _x, double _y)
+    void setXY(double _x, double _y)
+    void calXY(double range, double angle)
+    void calXYi(double range, double angle)
+    void setSid(int i)
+    void setAtd(double t)
+    void setType(ptype t)
+    void setNormal(double x, double y)
+}
+
+@enduml

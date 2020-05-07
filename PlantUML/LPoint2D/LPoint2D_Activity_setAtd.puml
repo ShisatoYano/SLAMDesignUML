@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    to set atd(accumulated travel distance)
+    input: double t
+'/
+
+(*) --> "atd = t"
+--> (*)
+
+@enduml

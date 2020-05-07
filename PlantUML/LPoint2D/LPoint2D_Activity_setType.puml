@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    to set point type
+    input: ptype t
+'/
+
+(*) --> "type = t"
+--> (*)
+
+@enduml

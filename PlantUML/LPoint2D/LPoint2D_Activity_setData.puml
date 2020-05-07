@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    input1: int id
+    input2: double _x
+    input3: double _y
+'/
+
+(*) --> "init()"
+--> "sid = id\nx = _x\ny = _y"
+--> (*)
+
+@enduml

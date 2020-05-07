@@ -1,0 +1,12 @@
+@startuml
+
+/'
+    to set normal vector
+    input1: double x
+    input2: double y
+'/
+
+(*) --> "nx = x \n ny = y"
+--> (*)
+
+@enduml

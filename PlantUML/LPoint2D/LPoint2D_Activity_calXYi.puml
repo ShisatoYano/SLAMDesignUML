@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    calculate x and y with range and angle on left coordinate
+    input1: double range
+    input2: double angle
+'/
+
+(*) --> "double a = DEG2RAD(angle)" /' DEG2RAD is defined in MyUtil class '/
+--> "x = range * cos(a) \n y = range * sin(a)"
+--> (*)
+
+@enduml

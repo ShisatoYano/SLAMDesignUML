@@ -15,16 +15,16 @@ enum ptype{
 }
 
 class LPoint2D <<struct>>{
-    int sid
-    double x
-    double y
-    double nx
-    double ny
-    double atd
-    ptype type
+    int sid /'scan index'/
+    double x /'position x'/
+    double y /'position y'/
+    double nx /'normal vector'/
+    double ny /'normal vector'/
+    double atd /'accumulated travel distance'/
+    ptype type /'type of point'/
 
-    LPoint2D()
-    LPoint2D(int id, double _x, double _y)
+    LPoint2D(): sid(-1), x(0), y(0) { init() }
+    LPoint2D(int id, double _x, double _y): x(_x), y(_y) { init(); sid = id; }
     void init()
     void setData(int id, double _x, double _y)
     void setXY(double _x, double _y)

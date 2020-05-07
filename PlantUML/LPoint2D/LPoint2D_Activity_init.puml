@@ -1,0 +1,6 @@
+@startuml
+
+(*) --> "sid = -1\natd = 0\ntype = UNKNOWN\nnx = 0\nny = 0"
+--> (*)
+
+@enduml

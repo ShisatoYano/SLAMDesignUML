@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    input1: double _x
+    input2: double _y
+'/
+
+(*) --> "x = _x\ny = _y"
+--> (*)
+
+@enduml

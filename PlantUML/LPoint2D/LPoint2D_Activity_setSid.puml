@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    to set scan index
+    input: int t
+'/
+
+(*) --> "sid = t"
+--> (*)
+
+@enduml

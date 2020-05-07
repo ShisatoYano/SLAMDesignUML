@@ -69,7 +69,7 @@ Each node has a the following content.
 
 |Program name|Content|
 |------------|-------|
-|MyUtil|Basic type and utility function|
+|[MyUtil](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/MyUtil)|Basic type and utility function|
 |Pose2D|Class definition of robot position|
 |LPoint2D|Class definition of scan point|
 |Scan2D|Class definition of scan|

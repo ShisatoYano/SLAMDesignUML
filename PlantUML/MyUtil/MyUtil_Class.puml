@@ -3,6 +3,8 @@
 skinparam classAttributeIconSize 0
 
 class MyUtil{
+    DEG2RAD(x)
+    RAD2DEG(x)
     {static} + int add(int a1, int a2)
     {static} + double add(double a1, double a2)
     {static} + double addR(double a1, double a2)

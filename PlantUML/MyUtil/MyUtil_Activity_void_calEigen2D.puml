@@ -8,9 +8,12 @@
     input4: double *vec2
 '/
 
-(*) --> "double a = mat[0][0]"
---> "double b = mat[0][1]"
---> "double c = mat[1][0]"
---> "double d = mat[1][1]"
+(*) --> "double a = mat[0][0] \n double b = mat[0][1] \n double c = mat[1][0] \n double d = mat[1][1]"
+--> "double B = sqrt((a + d) * (a + d) - 4 * (a * d - b * c))"
+--> "double x1 = ((a + d) + B) / 2 \n double x2 = ((a + d) - B) / 2"
+--> "vals[0] = x1 \n vals[1] = x2"
+--> double m00 = a - x1 \n double m01 = b \n double L = sqrt(m00 * m00 + m01 * m01)
+--> "vec1[0] = m01 / L \n vec1[1] = -m00 / L"
+--> "m00 = a - x2 \n m01 = b \n L = sqrt(m00 * m00 + m01 * m01) \n vec2[0] = m01 / L \n vec2[1] = -m00 / L"
 
 @enduml

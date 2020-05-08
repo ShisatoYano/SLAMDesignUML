@@ -1,0 +1,28 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+!include ../MyUtil/MyUtil_Class.puml
+!include ../LPoint2D/LPoint2D_Class.puml
+!include ../Pose2D/Pose2d_Class.puml
+
+class Scan2D <<struct>>{
+    {static} double MAX_SCAN_RANGE = 6 /' [m] '/
+    {static} double MIN_SCAN_RANGE = 0.1 /' [m] '/
+    int sid /' Scan Index '/
+    Pose2D pose /' odometry '/
+    std::vector<LPoint2D> lps /' scan point cloud '/
+
+    Scan2D() : sid(0)
+    ~Scan2D()
+
+    void setSid(int s) {sid = s}
+    void setLps(const std::vector<LPoint2D> &ps) {lps = ps}
+    void setPose(Pose2D &p) {pose = p}
+}
+
+Scan2D -> MyUtil
+Scan2D o- Pose2D
+Scan2D o-- LPoint2D
+
+@enduml

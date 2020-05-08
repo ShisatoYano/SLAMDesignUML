@@ -72,7 +72,7 @@ Each node has a the following content.
 |[MyUtil](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/MyUtil)|Basic type and utility function|
 |[Pose2D](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/Pose2D)|Class definition of robot position|
 |[LPoint2D](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/LPoint2D)|Class definition of scan point|
-|Scan2D|Class definition of scan|
+|[Scan2D](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/Scan2D)|Class definition of scan|
 |NNGridTable|Data association table|
 |PoseGraph|Class definition of pose graph|
 |P2oDriver2D|To launch pose adjustment|

@@ -1,0 +1,50 @@
+@startuml
+
+!include ../MyUtil/MyUtil_Class.puml
+!include ../Pose2D/Pose2d_Class.puml
+
+class PoseNode <<struct>>{
+    int nid /' node id '/
+    Pose2D pose /' robot position at this node '/
+    std::vector<PoseArc*> arcs
+
+    PoseNode() : nid(-1) {}
+    PoseNode(const Pose2D &p) : nid(-1) {pose = p}
+    ~PoseNode() {}
+    void init() {nid = -1; arcs.clear();}
+    void setPose(const Pose2D &p) {pose = p}
+    void setNid(int n) {nid = n}
+    void addArc(PoseArc *a) {arcs.push_back(a)}
+}
+
+class PoseArc <<struct>>{
+    PoseNode *src /' init node '/
+    PoseNode *dst /' end node '/
+    Pose2D relPose /' relative position of this arc '/
+    Eigen::Matrix3d inf /' information matrix '/
+
+    PoseArc() : src(nullptr), dst(nullptr) {}
+    PoseArc(PoseNode *s, PoseNode *d, Pose2D &rel, const Eigen::Matrix3d _inf) {setup(s, d, rel, _inf)}
+    ~PoseArc() {}
+    void setup(PoseNode *s, PoseNode *d, const Pose2D &rel, const Eigen::Matrix3d _inf) {src=s; dst=d; relPose=rel; inf=_inf}
+}
+
+class PoseGraph{
+    - {static} const int POOL_SIZE = 100000
+    - std::vector<PoseNode> nodePool
+    - std::vector<PoseArc> arcPool
+    + std::vector<PoseNode*> nodes
+    + std::vector<PoseArc*> arcs
+
+    + PoseGraph() {nodePool.reserve(POOL_SIZE); arcPool.reserve(POOL_SIZE)}
+    + ~PoseGraph() {}
+}
+
+PoseNode o- Pose2D
+PoseArc o-- PoseNode
+PoseArc o-- Pose2D
+PoseGraph -> PoseNode
+PoseGraph -> PoseArc
+PoseGraph -> Pose2D
+
+@enduml

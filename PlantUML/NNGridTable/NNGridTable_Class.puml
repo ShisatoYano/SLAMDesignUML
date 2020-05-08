@@ -1,0 +1,31 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+!include ../MyUtil/MyUtil_Class.puml
+!include ../Pose2D/Pose2d_Class.puml
+
+class NNGridCell <<struct>>{
+    std::vector<const LPoint2D*> lps /' point cloud stored in this cell '/
+    void clear() {lps.clear()}
+}
+
+class NNGridTable{
+    - double csize /' cell size [m] '/
+    - double rsize /' target reigion size [m] '/
+    - int tsize /' half of table size '/
+    - std::vector<NNGridCell> table /' Table object '/
+
+    + NNGridTable() : csize(0.05), rsize(40){}
+    + ~NNGridTable()
+    + void clear()
+    + void addPoint(const LPoint2D *lp)
+    + const LPoint2D *findClosestPoint(const LPoint2D *clp, const Pose2D &predPose)
+    + void makeCellPoints(int nthre, std::vector<LPoint2D> &ps)
+}
+
+Pose2D <-- NNGridTable
+NNGridTable o-- NNGridCell
+MyUtil <- NNGridTable
+
+@enduml

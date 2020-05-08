@@ -1,0 +1,31 @@
+@startuml
+
+/'
+    calculate current global pose moved for relative pose from origin
+    input1: const Pose2D &relPose
+    input2: const Pose2D &bpose
+    input3: Pose2D &npose
+'/
+
+(*) --> "const double (*R0)[2] = bpose.Rmat\nconst double (*R1)[2] = relPose.Rmat"
+--> "double (*R2)[2] = npose.Rmat"
+--> "double tx = relPose.tx\ndouble ty = relPose.ty"
+--> "npose.tx = R0[0][0] * tx + R0[0][1] * ty + bpose.tx"
+--> "npose.ty = R0[1][0] * tx + R0[1][1] * ty + bpose.ty"
+--> "double th = bpose.th + relPose.th"
+--> if "th < -180" then
+        --> [Yes] "th += 360"
+        --> "relPose.th = th"
+    else
+        --> [No] if "th >= 180" then
+                    --> [Yes] "th -= 360"
+                    --> "relPose.th = th"
+                 else
+                    --> [No] "Do nothing"
+                    --> "relPose.th = th"
+                 endif
+    endif
+"relPose.th = th" --> "relPose.calRmat()"
+--> (*)
+
+@enduml

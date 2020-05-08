@@ -1,0 +1,23 @@
+@startuml
+
+/'
+    to register scan point to grid table.
+    input: const LPoint2D *lp
+'/
+
+(*) --> "int xi = static_cast<int>(lp->x / csize) + tsize"
+--> if "xi < 0 || xi > 2 * tsize"
+    --> [Yes] "return"
+    else
+    --> [No] "int yi = static_cast<int>(lp->y / csize) + tsize"
+    endif
+--> if "yi < 0 || yi > 2 * tsize"
+    --> [Yes] "return"
+    else
+    --> [No] "size_t idx = static_cast<size_t>(yi * (2 * tsize + 1))"
+    endif
+--> "table[idx].lps.push_back(lp)"
+--> (*)
+"return" --> (*)
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+/'
+    constructor
+    csize: 0.05
+    rsize: 40
+'/
+
+(*) --> "tsize = static_cast<int>(rsize / csize)"
+--> "size_t w = static_cast<int>(2 * tsize + 1)"
+--> "table.resize(w * w)"
+--> "clear()"
+--> (*)
+
+@enduml

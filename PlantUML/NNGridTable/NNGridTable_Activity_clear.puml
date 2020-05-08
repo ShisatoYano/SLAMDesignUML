@@ -1,0 +1,12 @@
+@startuml
+
+(*) --> "Loop(size_t i 0 ~ table.size())"
+--> if "i < table.size()" as judge_i then
+        --> [Yes] "table[i].clear()"
+        --> judge_i
+    else
+        --> [No] "Loop is over"
+    endif
+--> (*)
+
+@enduml

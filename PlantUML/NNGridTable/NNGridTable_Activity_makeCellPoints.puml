@@ -1,0 +1,39 @@
+@startuml
+
+/'
+    calculate cell point of each cell in grid table.
+    input1: int nthre
+    input2: vector<LPoint2D> &ps
+'/
+
+(*) --> "size_t nn = 0"
+--> "Loop(size_t i = 0 ~ table.size())"
+--> if "i < table.size()" as judge_i then
+        --> [Yes] "vector<const LPoint2D*> &lps = table[i].lps"
+        --> "nn += lps.size()"
+        --> if "lps.size() >= nthre" then
+                --> [Yes] "double gx = 0, gy = 0 \n double nx = 0, ny = 0"
+                --> "int sid = 0"
+                --> "Loop(size_t j = 0 ~ lps.size())"
+                --> if "j < lps.size()" as judge_j then
+                        --> [Yes] "const LPoint2D *lp = lps[j]"
+                        --> "gx += lp->x \n gy += lp->y \n nx += lp->nx \n ny += lp->ny"
+                        --> "sid += lp->sid"
+                        --> judge_j
+                    else
+                        --> [No] "gx /= lps.size() \n gy /= lps.size()"
+                    endif
+                --> "double L = sqrt(nx*nx + ny*ny) \n nx /= L \n ny /= L \n sid /= lps.size()"
+                --> "LPoint2D newLp(sid, gx, gy) \n newLp.setNormal(nx, ny) \n newLp.setType(LINE)"
+                --> "ps.emplace_back(newLp)"
+                --> judge_i
+            else
+                --> [No] "Do nothing"
+                --> judge_i
+            endif
+    else
+        --> [No] "Loop is over"
+    endif
+--> (*)
+
+@enduml

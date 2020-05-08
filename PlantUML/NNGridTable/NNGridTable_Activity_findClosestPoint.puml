@@ -1,0 +1,67 @@
+@startuml
+
+/'
+    to find closest point against scan point clp from grid table
+    clp is transformed based on predPose
+    input1: const LPoint2D *clp
+    input2: const Pose2D &predPose
+'/
+
+(*) --> "LPoint2D glp\npredPose.globalPoint(*clp, glp)"
+--> "int cxi = static_cast<int>(glp.x / csize) + tsize"
+--> if "cxi < 0 || cxi > 2 * tsize"
+    --> [Yes] "return(nullptr)"
+    else
+    --> [No] "int cyi = static_cast<int>(glp.y / csize) + tsize"
+    endif
+--> if "cyi < 0 || cyi > 2 * tsize"
+    --> [Yes] "return(nullptr)"
+    else
+    --> [No] "size_t idx = static_cast<size_t>(yi * (2 * tsize + 1))"
+    endif
+--> "size_t pn = 0\ndouble dmin = 1000000\nconst LPoint2D *lpmin = nullptr"
+--> "double dthre = 0.2\nint R = static_cast<int>(dthre / csize)"
+
+--> "Loop(int i -R ~ R)"
+--> if "i <= R" as judge_i then
+        --> [Yes] "int yi = cyi + i"
+        --> if "yi < 0 || yi > 2 * tsize" as judge_yi then
+                --> [Yes] "continue i"
+                --> judge_i
+            else
+                --> [No] "Loop(int j -R ~ R)"
+                --> if "j <= R" as judge_j then
+                    --> [Yes] "int xi = cxi + i"
+                    --> if "xi < 0 || xi > 2 * tsize" as judge_xi then
+                            --> [Yes] "continue j"
+                            --> judge_j
+                        else
+                            --> [No] "size_t idx = yi * (2 * tsize + 1) + xi"
+                            --> "NNGridCell &cell = table[idx]"
+                            --> "vector<const LPoint2D*> &lps = cell.lps"
+                            --> "Loop(int k 0 ~ lps.size())"
+                            --> if "k < lps.size()" as judge_k then
+                                    --> [Yes] "const LPoint2D *lp = lps[k]"
+                                    --> "double d = \n (lp->x - glp.x)*(lp->x - glp.x) \n + (lp->y - glp.y)*(lp->y - glp.y)"
+                                    --> if "d <= dthre*dthre && d < dmin"
+                                            --> [Yes] "dmin = d\nlpmin = lp"
+                                            --> judge_k
+                                        else
+                                            --> [No] judge_k
+                                        endif
+                                else
+                                    --> [No] "pn += lps.size"
+                                    --> judge_j
+                                endif
+                        endif
+                    else
+                        --> [No] judge_i
+                    endif
+            endif
+    else
+        --> [No] "return(lpmin)"
+    endif
+"return(nullptr)" --> (*)
+"return(lpmin)" --> (*)
+
+@enduml

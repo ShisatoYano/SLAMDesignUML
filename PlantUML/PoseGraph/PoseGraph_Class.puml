@@ -38,6 +38,17 @@ class PoseGraph{
 
     + PoseGraph() {nodePool.reserve(POOL_SIZE); arcPool.reserve(POOL_SIZE)}
     + ~PoseGraph() {}
+    + void reset()
+    + PoseNode *allocNode()
+    + PoseArc *allocArc()
+    + PoseNode *addNode(const Pose2D &pose)
+    + void addNode(PoseNode *n1, const Pose2D &pose)
+    + PoseNode *findNode(int nid)
+    + void addArc(PoseArc *arc)
+    + PoseArc *makeArc(int srcNid, int dstNid, const Pose2D &relPose, const Eigen::Matrix3d &cov)
+    + PoseArc *findArc(int srcNid, int dstNid)
+    + void printNodes()
+    + void printArcs()
 }
 
 PoseNode o- Pose2D

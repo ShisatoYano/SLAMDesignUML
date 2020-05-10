@@ -1,0 +1,14 @@
+@startuml
+
+/'
+    add node to pose graph
+    input1: const Pose2D &pose
+    return: PoseNode*
+'/
+
+(*) --> "PoseNode *n1 = allocNode()"
+--> "addNode(n1, pose)"
+--> "return(n1)"
+--> (*)
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+
+/'
+    add node to pose graph
+    input1: PoseNode *n1
+    input2: const Pose2D &pose
+'/
+
+(*) --> "n1->setNid((int)nodes.size())"
+--> "n1->setPose(pose)"
+--> "nodes.push_back(n1)"
+--> (*)
+
+@enduml

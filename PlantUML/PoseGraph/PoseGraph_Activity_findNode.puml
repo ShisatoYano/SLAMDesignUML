@@ -1,0 +1,15 @@
+@startuml
+
+/'
+    find node from id
+    input: int id
+    return: PoseNode*
+'/
+
+(*) --> "Loop size_t i: 0 ~ nodes.size()"
+--> if "i < nodes.size()" as judge_i
+        --> [Yes] "PoseNode *n = nodes[i]"
+        --> if "n->nid == nid"
+                --> [Yes] "return(n)"
+
+@enduml

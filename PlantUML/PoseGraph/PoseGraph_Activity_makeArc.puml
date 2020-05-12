@@ -1,0 +1,20 @@
+@startuml
+
+/'
+    make arc between src node and dst node
+    input1: int srcNid
+    input2: int dstNid
+    input3: const Pose2D &relPose
+    input4: const Eigen::Matrix3d &cov
+    return: PoseArc
+'/
+
+(*) --> "Eigen::Matrix3d inf = MyUtil::svdInverse(cov)"
+--> "PoseNode *src = nodes[srcNid]"
+--> "poseNode *dst = nodes[dstNid]"
+--> "PoseArc *arc = allocArc()"
+--> "arc->setup(src, dst, relPose, inf)"
+--> "return(arc)"
+--> (*)
+
+@enduml

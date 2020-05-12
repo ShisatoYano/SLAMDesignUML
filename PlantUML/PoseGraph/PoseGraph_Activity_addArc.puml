@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    add arc to pose graph
+    input: PoseNode *arc
+'/
+
+(*) --> "arc->src->addArc(arc)"
+--> "arc->dst->addArc(arc)"
+--> "arc.push_back(arc)"
+--> (*)
+
+@enduml

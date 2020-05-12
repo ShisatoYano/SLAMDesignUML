@@ -7,9 +7,14 @@
 '/
 
 (*) --> "Loop size_t i: 0 ~ nodes.size()"
---> if "i < nodes.size()" as judge_i
+--> if "i < nodes.size()" as judge_i then
         --> [Yes] "PoseNode *n = nodes[i]"
         --> if "n->nid == nid"
                 --> [Yes] "return(n)"
-
+                --> (*)
+            else
+                --> [No] judge_i
+    else
+        --> [No] "return(nullptr)"
+        --> (*)
 @enduml

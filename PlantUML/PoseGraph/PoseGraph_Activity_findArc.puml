@@ -1,0 +1,22 @@
+@startuml
+
+/'
+    find arc based on src and dst nid
+    input1: int srcNid
+    input2: int dstNid
+    return: PoseArc
+'/
+
+(*) --> "Loop(size_t i: 0 ~ arcs.size())"
+--> if "i < arcs.size()" as judge_i then
+        --> [Yes] "PoseArc *a = arcs[i]"
+        --> if "a->src->nid == srcNid \n && a->dst->nid == dstNid" then
+                --> [Yes] "return(a)"
+                --> (*)
+            else
+                --> [No] judge_i
+    else
+        --> [No] "return(nullptr)"
+        --> (*)
+
+@enduml

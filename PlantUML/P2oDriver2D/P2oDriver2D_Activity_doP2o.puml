@@ -1,0 +1,24 @@
+@startuml
+
+/'
+    adjust pose graph
+    robot trajectory based on the result is stored as new pose
+    input1: PoseGraph &pg
+    input2: vector<Pose2D> &newPoses
+    input3: int N
+'/
+
+(*) --> "vector<PoseNode*> &nodes = pg.nodes \n vector<PoseArc*> &arcs = pg.arcs"
+--> "vector<p2o::Pose2D> pnodes"
+--> "Loop: size_t i: 0 - nodes.size()"
+--> if "i < nodes.size()" as judge_i then
+        --> [Yes] "PoseNode *node = nodes[i]"
+        --> Pose2D pose = node->pose
+        --> "pnodes.push_back(p2o::Pose2D(pose.tx, pose.ty, DEG2RAD(pose.th)))"
+        --> judge_i
+    else
+        -> [No] "p2o::Con2DVec pcons"
+"p2o::Con2DVec pcons" --> "Loop: size_t j: 0 - nodes.size()"
+
+
+@enduml

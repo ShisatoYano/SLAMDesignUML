@@ -18,7 +18,30 @@
         --> judge_i
     else
         -> [No] "p2o::Con2DVec pcons"
-"p2o::Con2DVec pcons" --> "Loop: size_t j: 0 - nodes.size()"
-
+"p2o::Con2DVec pcons" --> "Loop: size_t j: 0 - arcs.size()"
+--> if "j < arcs.size()" as judge_j then
+        --> [Yes] "PoseArc *arc = arcs[j] \n PoseNode *src = arc->src \n PoseNode *dst = arc->dst"
+        --> "Pose2D &relPose = arc->relPose \n p2o::Con2D con"
+        --> "con.id1 = src->nid \n con.id2 = dst->nid"
+        --> "con.t = p2o::Pose2D(relPose.tx, relPose.ty, DEG2RAD(relPose.th))"
+        if "0 <= k < 3" as judge_k then
+            --> [Yes] if "0 <= m < 3" as judge_m then
+                --> [Yes] "con.info(k, m) = arc->inf(k, m)"
+                --> judge_m
+                else
+                    --> [No] judge_k
+        else
+            judge_k -> [No] "pcons.push_back(con)"
+            --> judge_j
+    else
+        judge_j -> [No] "p2o::Optimizer2D opt"
+--> "std::vector<p2o::Pose2D> result = opt.optimizePath(pnodes, pcons, N)"
+--> if "0 <= n < result.size()" as judge_n then
+        --> [Yes] "p2o::Pose2D newPose = result[n]"
+        --> "Pose2D pose(newPose.x, newPose.y, RAD2DEG(newPose.th))"
+        --> newPoses.emplace_back(pose)
+        --> judge_n
+    else
+        -> [No] (*)
 
 @enduml

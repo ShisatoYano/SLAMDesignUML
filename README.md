@@ -58,7 +58,7 @@ Each node has a the following content.
 |PoseEstimatorICP|To calculate robot position by ICP|
 |DataAssociator|To associate data|
 |PoseOptimizer|To minimize cost function|
-|CostFunction|Cost function|
+|[CostFunction](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CostFunction)|Cost function|
 |PointCloudMap|To manage point cloud map|
 |ScanPointResampler|To equalize space between scan point|
 |ScanPointAnalyzer|To calculate normal vector of scan point|

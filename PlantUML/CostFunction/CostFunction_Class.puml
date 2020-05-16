@@ -1,8 +1,21 @@
 @startuml
 
-!include ../MyUtil/MyUtil_Class.puml
 !include ../LPoint2D/LPoint2D_Class.puml
-!include ../Pose2D/Pose2d_Class.puml
-!include ../Scan2D/Scan2D_Class.puml
+
+class CostFunction{
+    - std::vector<const LPoint2D*> curLps /'associated current point cloud'/
+    - std::vector<const LPoint2D*> refLps /'associated reference point cloud'/
+    - double evlimit /'matching distance threshold'/
+    - double pnrate /'associated point rate within evlimit'/
+
+    + CostFunction() : evlimit(0), pnrate(0)
+    + ~CostFunction()
+    + setEvlimit(double e) {evlimit = e}
+    + void setPoints(std::vector<const LPoint2D*> &cur, \n std::vector<const LPoint2D*> &ref)
+    + double getPnrate() {return(pnrate)}
+    + virtual double calValue(double tx, double ty, double th) = 0
+}
+
+LPoint2D <- CostFunction
 
 @enduml

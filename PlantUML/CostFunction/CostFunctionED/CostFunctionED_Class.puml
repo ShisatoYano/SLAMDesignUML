@@ -1,0 +1,13 @@
+@startuml
+
+!include ../../CostFunction/CostFunction_Class.puml
+
+class CostFunctionED{
+    + CostFunctionED()
+    + ~CostFunctionED()
+    + virtual double calValue(double tx, double ty, double th)
+}
+
+CostFunction <|- CostFunctionED
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+
+!include ../LPoint2D/LPoint2D_Class.puml
+!include ../Pose2D/Pose2D_Class.puml
+!include ../CostFunction/CostFunction_Class.puml
+
+class PoseOptimizer{
+    + int allN
+    + double sum
+    + PoseOptimizer(): evthre(0.000001), dd(0.00001), da(0.00001), cfunc(nullptr) {allN = 0; sum = 0}
+    + ~poseOptimizer()
+    + void setCostFunction(CostFunction *f) {cfunc = f}
+    + void setEvlimit(double l) {cfunc->setEvlimit(l)
+    + void setPoints(std::vector<const LPoint2D*> &curLps, std::vector<const LPoint2D*> &refLps) \n {cfunc->setPoints(curLps, refLps)}
+    + void setEvthre(double inthre) {this->evthre = inthre}
+    + double getPnrate() {return (cfunc->getPnrate())}
+    + void setDdDa(double d, double a) {dd = d; da = a}
+    + virtual double optimizePose(Pose2D &initPose, Pose2D &estPose) = 0
+    # double evthre
+    # double dd
+    # double da
+    # CostFunction *cfunc
+}
+
+LPoint2D <-- PoseOptimizer
+Pose2D <-- PoseOptimizer
+CostFunction -o PoseOptimizer
+
+@enduml

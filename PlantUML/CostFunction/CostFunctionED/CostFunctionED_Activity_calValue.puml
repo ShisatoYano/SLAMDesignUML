@@ -1,0 +1,30 @@
+@startuml
+
+/'
+    ICP cost function with point distance
+    input1: double tx
+    input2: double ty
+    input3: double th
+'/
+
+(*) --> "double a = DEG2RAD(th) \n double error = 0 \n int pn = 0 \n int nn = 0"
+--> if "0 <= size_t i < curLps.size()" as judge_i then
+        --> [Yes] "const LPoint2D *clp = curLps[i] \n const LPoint2D *rlp = refLps[i]"
+        --> "cx = clp->x \n cy = clp->y"
+        --> "x = cos(a) * cx - sin(a) * cy + tx \n y = sin(a) * cx + cos(a) * cy + ty"
+        --> "double edis = (x - rlp->x) * (x - rlp->x) + (y - rlp->y) * (y - rlp->y)"
+        --> if "edis <= evlimit * evlimit"
+                --> [Yes] "++pn"
+                --> "error += edis"
+            else
+                --> [No] "error += edis"
+        "error += edis" --> "++nn"
+        --> judge_i
+    else
+        judge_i -> [No] "error = (nn > 0)? error / nn : HUGE_VAL"
+        --> "pnrate = 1.0 * pn / nn"
+--> "error *= 100"
+--> "return(error)"
+--> (*)
+
+@enduml

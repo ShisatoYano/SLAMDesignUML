@@ -84,7 +84,7 @@ Each node has a the following content.
 |RefScanMakerBS|To refer just before scan|
 |RefScanMakerLM|To refer local map data|
 |[CostFunctionED](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CostFunction/CostFunctionED)|Euclid distance is used as cost function|
-|CostFunctionPD|Perpendicular distance is used as cost function|
+|[CostFunctionPD](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CostFunction/CostFunctionPD)|Perpendicular distance is used as cost function|
 |PoseOptimizerSD|Optimization by Steepest descent|
 |PoseOptimizerSL|Optimization by Steepest descent and Line search|
 |DataAssociatorLS|Data association by Linear search|

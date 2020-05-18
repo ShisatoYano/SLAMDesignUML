@@ -1,0 +1,15 @@
+@startuml
+
+!include ../../PoseOptimizer/PoseOptimizer_Class.puml
+
+class PoseOptimizerSL{
+    + PoseOptimizerSL()
+    + ~PoseOptimizerSL()
+    + virtual double optimizePose(Pose2D &initPose, Pose2D &estPose)
+    + double search(double ev0, Pose2D &pose, Pose2D &dp)
+    + double objFunc(double tt, Pose2D &pose, Pose2D &dp)
+}
+
+PoseOptimizer <|- PoseOptimizerSL
+
+@enduml

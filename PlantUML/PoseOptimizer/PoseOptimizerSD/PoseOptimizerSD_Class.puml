@@ -1,0 +1,13 @@
+@startuml
+
+!include ../../PoseOptimizer/PoseOptimizer_Class.puml
+
+class PoseOptimizerSD{
+    + PoseOptimizerSD()
+    + ~PoseOptimizerSD()
+    + virtual double optimizePose(Pose2D &initPose, Pose2D &estPose)
+}
+
+PoseOptimizer <|- PoseOptimizerSD
+
+@enduml

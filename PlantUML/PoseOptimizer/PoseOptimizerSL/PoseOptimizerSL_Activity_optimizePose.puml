@@ -1,0 +1,40 @@
+@startuml
+
+/'
+    fix data association
+    estimate robot pose by steepest descent and line search
+    input1: Pose2D &initPose
+    input2: Pose2D &estPose
+    return: evmin
+'/
+
+(*) --> "double th = initPose.th \n double tx = initPose.tx \n double ty = initPose.ty"
+--> "double txmin = tx \n double tymin = ty \n double thmin = th"
+--> "double evmin = HUGE_VAL \n double evold = evmin \n Pose2D pose, dir"
+--> "double ev = cfunc->calValue(tx, ty, th)"
+--> "int nn = 0"
+--> if "abs(evold - ev) > evthre" as judge_ev then
+        --> [Yes] "nn++ \n evold = ev"
+        --> "double dx = (cfunc->calValue(tx+dd, ty, th) - ev) / dd"
+        --> "double dy = (cfunc->calValue(tx, ty+dd, th) - ev) / dd"
+        --> "double dh = (cfunc->calValue(tx, ty, th+da) - ev) / da"
+        --> "tx += dx \n ty += dy \n th += dh"
+        --> "pose.tx = tx \n pose.ty = ty \n pose.th = th \n dir.tx dx \n dir.ty dx \n dir.th = dh"
+        --> "search(ev, pose, dir) \n tx = pose.tx \n ty = pose.ty \n th = pose.th"
+        --> "ev = cfunc->calValue(tx, ty, th)"
+        --> if "ev < evmin" as judge_evmin then
+                --> [Yes] "evmin = ev \n txmin = tx \n tymin = ty \n thmin = th"
+                --> judge_ev
+            else
+                --> [No] judge_ev
+    else
+        --> [No] "++allN"
+--> if "allN > 0 && evmin < 100"
+        --> [Yes] "sum += evmin"
+        --> estPose.setVal(txmin, tymin, thmin)
+    else
+        --> [No] estPose.setVal(txmin, tymin, thmin)
+--> "return(evmin)"
+--> (*)
+
+@enduml

@@ -18,5 +18,19 @@
         --> "double dx = -kk * dEtx \n double dy = -kk * dEty \n double dth = -kk * dEth"
         --> "tx += dx \n ty += dy \n th += dth"
         --> "ev = cfunc->calValue(tx, ty, th)"
+        --> if "ev < evmin" as judge_evmin then
+                --> [Yes] "evmin = ev \n txmin = tx \n tymin = ty \n thmin = th"
+                --> judge_ev
+            else
+                --> [No] judge_ev
+    else
+        --> [No] "++allN"
+--> if "allN > 0 && evmin < 100"
+        --> [Yes] "sum += evmin"
+        --> estPose.setVal(txmin, tymin, thmin)
+    else
+        --> [No] estPose.setVal(txmin, tymin, thmin)
+--> "return(evmin)"
+--> (*)
 
 @enduml

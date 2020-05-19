@@ -1,0 +1,22 @@
+@startuml
+
+/'
+    fix data association
+    estimate robot pose by steepest descent
+'/
+
+(*) --> "double th = initPose.th \n double tx = initPose.tx \n double ty = initPose.ty"
+--> "double txmin = tx \n double tymin = ty \n double thmin = th"
+--> "double evmin = HUGE_VAL \n double evold = evmin"
+--> "double ev = cfunc->calValue(tx, ty, th)"
+--> "int nn = 0 \n int kk = 0.00001"
+--> if "abs(evold - ev) > evthre" as judge_ev then
+        --> [Yes] "nn++ \n evold = ev"
+        --> "double dEtx = (cfunc->calValue(tx+dd, ty, th) - ev) / dd"
+        --> "double dEty = (cfunc->calValue(tx, ty+dd, th) - ev) / dd"
+        --> "double dEth = (cfunc->calValue(tx, ty, th+da) - ev) / da"
+        --> "double dx = -kk * dEtx \n double dy = -kk * dEty \n double dth = -kk * dEth"
+        --> "tx += dx \n ty += dy \n th += dth"
+        --> "ev = cfunc->calValue(tx, ty, th)"
+
+@enduml

@@ -3,6 +3,9 @@
 /'
     fix data association
     estimate robot pose by steepest descent
+    input1: Pose2D &initPose
+    input2: Pose2D &estPose
+    return: evmin
 '/
 
 (*) --> "double th = initPose.th \n double tx = initPose.tx \n double ty = initPose.ty"

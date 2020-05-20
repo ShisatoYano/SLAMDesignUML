@@ -1,0 +1,18 @@
+@startuml
+
+/'
+    object function for line search
+    tt is step width
+    input1: double tt
+    input2: Pose2D &pose
+    input3: Pose2D &dp
+'/
+
+(*) --> "double tx = pose.tx + tt * dp.tx
+double ty = pose.ty + tt * dp.ty
+double th = MyUtil::add(pose.th, tt * dp.th
+double v = cfunc->calValue(tx, ty, th)"
+--> "return(v)"
+--> (*)
+
+@enduml

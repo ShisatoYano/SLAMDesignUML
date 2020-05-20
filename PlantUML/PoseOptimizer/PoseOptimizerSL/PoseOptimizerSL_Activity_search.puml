@@ -1,0 +1,24 @@
+@startuml
+
+/'
+    line search by brent method
+    input1: double ev0
+    input2: Pose2D &pose
+    input3: Pose2D &dp
+'/
+
+(*) --> "int bits = numerical_limits<double>::digits
+boost::uintmax_t maxIter = 40"
+--> "pair<double, double> result =
+boost::math::tools::brent_find_minima(
+[this, &pose, &dp](double tt) {return (objFunc(tt, pose, dp))},
+-2.0, 2.0, bits, maxIter)"
+--> "double t = result.first
+double v = result.second"
+--> "pose.tx = pose.tx + t * dp.tx
+pose.ty = pose.ty + t * dp.ty
+pose.th = MyUtil::add(pose.th, t * dp.th)"
+--> "return(v)"
+--> (*)
+
+@enduml

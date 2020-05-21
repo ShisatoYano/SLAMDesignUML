@@ -87,8 +87,8 @@ Each node has a the following content.
 |[CostFunctionPD](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CostFunction/CostFunctionPD)|Perpendicular distance is used as cost function|
 |[PoseOptimizerSD](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseOptimizer/PoseOptimizerSD)|Optimization by Steepest descent|
 |[PoseOptimizerSL](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseOptimizer/PoseOptimizerSL)|Optimization by Steepest descent and Line search|
-|DataAssociatorLS|Data association by Linear search|
-|DataAssociatorGT|Data association by Grid table|
+ |[DataAssociatorLS](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/DataAssociator/DataAssociatorLS)|Data association by Linear search|
+|[DataAssociatorGT](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/DataAssociator/DataAssociatorGT)|Data association by Grid table|
 |PointCloudMapBS|Point cloud map management by saving all of scan points|
 |PointCloudMapGT|Point cloud map management by Grid table|
 |PointCloudMapLP|Partial map management by Grid table|

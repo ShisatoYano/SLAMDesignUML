@@ -1,0 +1,12 @@
+@startuml
+
+/'
+    find correspondence point to each current scan point from baseLps
+    input1: const Scan2D *curScan
+    input2: const Pose2D &predPose
+    return double correspondence ratio
+'/
+
+
+
+@enduml

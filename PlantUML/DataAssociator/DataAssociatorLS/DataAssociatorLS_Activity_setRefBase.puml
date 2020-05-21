@@ -1,0 +1,15 @@
+@startuml
+
+/'
+    set reference scan points to base as pointer
+    input: const std::vector<LPoint2D> &lps
+'/
+
+(*) --> "baseLps.clear()"
+--> if "0 <= size_t i < lps.size()" as judge_i then
+        --> [Yes] "baseLps.push_back(&lps[i])"
+        --> judge_i
+    else
+        -> [No] (*)
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+!include ../../DataAssociator/DataAssociator_Class.puml
+
+class DataAssociatorLS{
+    - std::vector<const LPoint2D*> baseLps
+    + DataAssociatorLS()
+    + ~DataAssociatorLS()
+    + virtual void setRefBase(const std::vector<LPoint2D> &rlps)
+    + virtual double findCorrespondence(const Scan2D *curScan, const Pose2D &predPose)
+}
+
+DataAssociatorLS --|> DataAssociator
+
+@enduml

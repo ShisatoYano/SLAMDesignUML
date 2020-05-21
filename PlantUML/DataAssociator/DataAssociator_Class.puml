@@ -1,0 +1,20 @@
+@startuml
+
+!include ../LPoint2D/LPoint2D_Class.puml
+!include ../Pose2D/Pose2D_Class.puml
+!include ../Scan2D/Scan2D_Class.puml
+
+class DataAssociator{
+    + std::vector<const LPoint2D*> curLps
+    + std::vector<const LPoint2D*> refLps
+    + DataAssociator()
+    + ~DataAssociator()
+    + virtual void setRefBase(const std::vector<LPoint2D> &lps) = 0
+    + virtual double findCorrespondence(const Scan2D *curScan, const Pose2D &predPose) = 0
+}
+
+DataAssociator --> Scan2D
+DataAssociator --> Pose2D
+LPoint2D -o DataAssociator
+
+@enduml

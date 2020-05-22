@@ -7,6 +7,28 @@
     return double correspondence ratio
 '/
 
-
+(*) --> "boost::timer tim \n double dthre = 0.2"
+--> "curLps.clear() \n refLps.clear()"
+--> if "0 <= size_t i < curScan->lps.size()" as judge_i then
+        --> [Yes] "const LPoint2D *clp = &(curScan->lps[i])"
+        --> "LPoint2D glp \n predPose.globalPoint(*clp, glp)"
+        --> "double dmin = HUGE_VAL \n const LPoint2D *rlpmin = nullptr"
+        --> if "0 <= size_t j < baseLps.size()" as judge_j then
+                --> [Yes] "const LPoint2D *rlp = baseLps[j]"
+                --> "double d = (glp.x - rlp->x) * (glp.x - rlp->x) + (glp.y - rlp->y) * (glp.y - rlp->y)"
+                --> if "d <= dthre * dthre && d < dmin"
+                        --> [Yes] "dmin = d \n rlpmin = rlp"
+                        --> judge_j
+                    else
+                        --> [No] judge_j
+            else
+                judge_j --> [No] if "rlpmin != nullptr" as judge_min then
+                --> [Yes] "curLps.push_back(clp) \n refLps.push_back(rlpmin)"
+                --> judge_i
+                judge_min --> [No] judge_i
+    else
+        judge_i -> [No] "double ratio = (1.0 * curLps.size()) / curScan->lps.size()"
+        --> "return(ratio)"
+        --> (*)
 
 @enduml

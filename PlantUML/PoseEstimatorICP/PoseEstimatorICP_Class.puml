@@ -1,5 +1,13 @@
 @startuml
 
 !include ../PoseOptimizer/PoseOptimizer_Class.puml
+!include ../DataAssociator/DataAssociator_Class.puml
+
+class PoseEstimatorICP{
+    
+}
+
+PoseEstimatorICP o-- PoseOptimizer
+PoseEstimatorICP o-- DataAssociator
 
 @enduml

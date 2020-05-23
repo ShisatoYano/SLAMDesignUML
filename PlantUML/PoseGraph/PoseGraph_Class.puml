@@ -54,8 +54,8 @@ class PoseGraph{
 PoseNode o- Pose2D
 PoseArc o-- PoseNode
 PoseArc o-- Pose2D
-PoseGraph -> PoseNode
-PoseGraph -> PoseArc
+PoseGraph --> PoseNode
+PoseGraph --> PoseArc
 PoseGraph -> Pose2D
 
 @enduml

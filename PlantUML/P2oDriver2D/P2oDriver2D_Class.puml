@@ -1,8 +1,6 @@
 @startuml
 
-!include ../MyUtil/MyUtil_Class.puml
 !include ../Pose2D/Pose2d_Class.puml
-!include ../Scan2D/Scan2D_Class.puml
 !include ../PoseGraph/PoseGraph_Class.puml
 
 class P2oDriver2D{
@@ -11,6 +9,6 @@ class P2oDriver2D{
     + void doP2o(PoseGraph &graph, std::vector<Pose2D> &newPoses, int N)
 }
 
-P2oDriver2D -> PoseGraph
+P2oDriver2D --> PoseGraph
 
 @enduml

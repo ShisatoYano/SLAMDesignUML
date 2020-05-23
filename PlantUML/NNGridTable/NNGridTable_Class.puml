@@ -24,8 +24,8 @@ class NNGridTable{
     + void makeCellPoints(int nthre, std::vector<LPoint2D> &ps)
 }
 
-Pose2D <-- NNGridTable
+NNGridTable --> Pose2D
 NNGridTable o-- NNGridCell
-MyUtil <- NNGridTable
+NNGridTable --> MyUtil
 
 @enduml

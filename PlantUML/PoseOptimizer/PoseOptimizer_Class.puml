@@ -1,7 +1,5 @@
 @startuml
 
-!include ../LPoint2D/LPoint2D_Class.puml
-!include ../Pose2D/Pose2D_Class.puml
 !include ../CostFunction/CostFunction_Class.puml
 
 class PoseOptimizer{
@@ -22,8 +20,6 @@ class PoseOptimizer{
     # CostFunction *cfunc
 }
 
-LPoint2D <-- PoseOptimizer
-Pose2D <-- PoseOptimizer
-CostFunction -o PoseOptimizer
+PoseOptimizer o-- CostFunction
 
 @enduml

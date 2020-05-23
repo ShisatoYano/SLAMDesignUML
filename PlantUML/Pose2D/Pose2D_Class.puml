@@ -36,6 +36,6 @@ class PoseCov <<struct>>{
 Pose2D --> MyUtil
 Pose2D --> LPoint2D
 
-Pose2D o- PoseCov
+Pose2D o-- PoseCov
 
 @enduml

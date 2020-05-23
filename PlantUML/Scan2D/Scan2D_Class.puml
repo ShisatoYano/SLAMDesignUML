@@ -22,7 +22,7 @@ class Scan2D <<struct>>{
 }
 
 Scan2D -> MyUtil
-Scan2D o- Pose2D
+Scan2D o-- Pose2D
 Scan2D o-- LPoint2D
 
 @enduml

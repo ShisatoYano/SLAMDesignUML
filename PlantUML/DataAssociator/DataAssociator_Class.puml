@@ -15,6 +15,6 @@ class DataAssociator{
 
 DataAssociator --> Scan2D
 DataAssociator --> Pose2D
-LPoint2D -o DataAssociator
+DataAssociator o-- LPoint2D
 
 @enduml

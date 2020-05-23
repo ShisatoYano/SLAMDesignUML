@@ -36,7 +36,7 @@ class LPoint2D <<struct>>{
     void setNormal(double x, double y)
 }
 
-ptype -o LPoint2D
-Vector2D --o LPoint2D
+LPoint2D o-- ptype
+LPoint2D o-- Vector2D
 
 @enduml

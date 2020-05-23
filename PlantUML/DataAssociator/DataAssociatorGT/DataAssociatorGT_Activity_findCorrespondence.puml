@@ -1,0 +1,25 @@
+@startuml
+
+/'
+    find correspondence point to each current scan point from baseLps
+    input1: const Scan2D *curScan
+    input2: const Pose2D &predPose
+    return double correspondence ratio
+'/
+
+(*) --> "boost::timer tim"
+--> "curLps.clear() \n refLps.clear()"
+--> if "0 <= size_t i < curScan->lps.size()" as judge_i then
+        --> [Yes] "const LPoint2D *clp = &(curScan->lps[i])"
+        --> "const LPoint2D *rlp = nntab.findClosestPoint(clp, predPose)"
+        --> if "rlp != nullptr" as judge_null then
+                --> [Yes] "curLps.push_back(clp) \n refLps.push_back(rlp)"
+                --> judge_i
+            else
+                --> [No] judge_i
+    else
+        judge_i -> [No] "double ratio = (1.0 * curLps.size()) / curScan->lps.size()"
+        --> return(ratio)
+        --> (*)
+
+@enduml

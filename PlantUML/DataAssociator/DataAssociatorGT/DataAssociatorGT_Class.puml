@@ -1,0 +1,17 @@
+@startuml
+
+!include ../../DataAssociator/DataAssociator_Class.puml
+!include ../../NNGridTable/NNGridTable_Class.puml
+
+class DataAssociatorGT{
+    - NNGridTable nntab
+    + DataAssociatorGT()
+    + ~DataAssociatorGT()
+    + virtual void setRefBase(const std::vector<LPoint2D> &rlps)
+    + virtual double findCorrespondence(const Scan2D *curScan, const Pose2D &predPose)
+}
+
+DataAssociatorGT --|> DataAssociator
+DataAssociatorGT o- NNGridTable
+
+@enduml

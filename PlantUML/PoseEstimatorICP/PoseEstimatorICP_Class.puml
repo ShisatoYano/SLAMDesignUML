@@ -4,7 +4,22 @@
 !include ../DataAssociator/DataAssociator_Class.puml
 
 class PoseEstimatorICP{
-    
+    - const Scan2D *curScan
+    - size_t usedNum
+    - double pnrate
+    - poseOptimizer *popt
+    - dataAssociator *dass
+    + double totalError
+    + double totalTime
+    + PoseEstimatorICP() : usedNum(0), pnrate(0), totalError(0), totalTime(0)
+    + ~PoseEstimatorICP()
+    + void setPoseOptimizer(PoseOptimizer *p){popt = p}
+    + void setDataAssociator(dataAssociator *d){dass = d}
+    + double getPnrate(){return(pnrate)}
+    + size_t getUsedNum(){return(usedNum)}
+    + void setScanPair(const Scan2D *c, const Scan2D *r){curScan = c; dass->setRefBase(r->lps)}
+    + void setScanPair(const Scan2D *c, const std::vector<LPoint2D> &refLps){curScan = c; dass->setRefBase(&refLps)}
+    + double estimatePose(Pose2D &initPose, Pose2D &estPose)
 }
 
 PoseEstimatorICP o-- PoseOptimizer

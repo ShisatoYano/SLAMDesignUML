@@ -1,0 +1,25 @@
+@startuml
+
+/'
+    create local map
+'/
+
+(*) --> "localMap.clear()"
+--> if "submaps.size() >= 2" as sms then
+--> [Yes] "Submap &submap = submaps[submaps.size() - 2]"
+--> "vector<LPoint2D> &mps = submap.mps"
+--> if "0 <= size_t i < mps.size()" as for_i then
+--> [Yes] "localMap.emplace_back(mps[i])"
+--> for_i
+else
+for_i --> "Submap &curSubmap = submaps.back()"
+else
+sms --> [No] "Submap &curSubmap = submaps.back()"
+--> "vector<LPoint2D> sps = curSubmap.subsamplePoints(nthre)"
+--> if "0 <= size_t j < sps.size()" as for_j then
+--> [Yes] "localMap.emplace_back()"
+--> for_j
+else
+-> [No] (*)
+
+@enduml

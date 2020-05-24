@@ -1,0 +1,21 @@
+@startuml
+
+/'
+    add scan points
+    input: const vector<LPoint2D> &lps
+'/
+
+(*) --> "Submap &curSubmap = submap.back()"
+--> if "atd - curSubmap.atdS >= atdThre"
+--> [Yes] "size_t size = poses.size()
+curSubmap.cntE = size - 1
+curSubmap.mps = curSubmap.subsamplePoints(nthre)"
+--> "Submap submap(atd, size)
+submap.addPoints(lps)
+submap.emplace_back(submap)"
+--> (*)
+else
+--> [No] "curSubmap.addPoints(lps)"
+--> (*)
+
+@enduml

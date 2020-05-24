@@ -1,0 +1,17 @@
+@startuml
+
+/'
+    add pose of robot
+    input: const Pose2D &p
+'/
+
+(*) --> if "poses.size() > 0"
+--> [Yes] "Pose2D pp = poses.back()
+atd += sqrt((p.tx - pp.tx) * (p.tx - pp.tx) + (p.ty - pp.ty) * (p.ty - pp.ty))"
+--> "poses.emplace_back(p)"
+else
+--> [No] "atd += sqrt(p.tx * p.tx + p.ty * p.ty)"
+--> "poses.emplace_back(p)"
+--> (*)
+
+@enduml

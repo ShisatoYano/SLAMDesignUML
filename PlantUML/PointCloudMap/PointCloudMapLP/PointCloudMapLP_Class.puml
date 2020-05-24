@@ -14,7 +14,7 @@ class Submap <<struct>> {
 }
 
 class PointCloudMapLP{
-    + {static} double atdThre
+    + {static} double atdThre = 10
     + double atd
     + std::vector<Submap> submaps
     + PointCloudMapLP(){Submap submap; submap.emplace_back(submap)}

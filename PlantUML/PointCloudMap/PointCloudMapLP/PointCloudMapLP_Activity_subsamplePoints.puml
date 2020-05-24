@@ -1,0 +1,18 @@
+@startuml
+
+/'
+    get sub sample points by grid table
+    input: int nthre
+    return: vector<LPoint2D> sps
+'/
+
+(*) --> "NNGridTable nntab"
+--> if "0<= size_t i < mps.size()" as judge_i then
+--> [Yes] "LPoint2D &lps = mps[i] \n nntab.addPoint(&lp)"
+--> judge_i
+else
+-> [No] "vector<LPoint2D> sps \n nntab.makeCellPoints(nthre, sps)"
+--> "return(sps)"
+--> (*)
+
+@enduml

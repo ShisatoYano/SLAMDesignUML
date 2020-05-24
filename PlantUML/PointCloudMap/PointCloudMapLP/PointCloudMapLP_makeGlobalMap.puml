@@ -1,0 +1,34 @@
+@startuml
+
+/'
+    create global map
+    local map is created here together
+    because process is faster
+'/
+
+(*) --> "globalMap.clear() \n localMap.clear()"
+--> if "0 <= size_t i < getSubmaps.size() - 1" as judge_i then
+--> [Yes] "Submap &submap = Submaps[i] \n vector<LPoint2D> &mps = submap.mps"
+--> if "0 <= size_t j < mps.size()" as judge_j then
+--> [Yes] "globalMap.emplace_back(mps[j])"
+--> judge_j
+else
+judge_j --> [No]if "i == submaps.size() - 2" as judge_s then
+--> [Yes] if "0 <= size_t k < mps.size()" as judge_k then
+--> [Yes]"localMap.emplace_back(mps[k])"
+--> judge_k
+else
+judge_k --> [No] judge_i
+else
+judge_s --> [No] judge_i
+else
+judge_i -> [No] "Submap &curSubmap = submaps.back()"
+--> "vector<LPoint2D> sps = curSubmap.subsamplePoints(nthre)"
+--> if "0 <= size_t l < sps.size()" as judge_l then
+--> [Yes] "globalMap.emplace_back(sps[i])
+localMap.emplace_back(sps[i])"
+--> judge_l
+else
+judge_l -> [No] (*)
+
+@enduml

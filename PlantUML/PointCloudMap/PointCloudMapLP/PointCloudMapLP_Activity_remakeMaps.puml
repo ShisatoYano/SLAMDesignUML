@@ -1,0 +1,40 @@
+@startuml
+
+/'
+    remake map with adjusted new robot pose
+    input: const vector<Pose2D> &newPoses
+'/
+
+(*) --> if "0 <= size_t i < submaps.size()" as for_i then
+--> [Yes] "Submap &submap = submaps[i]"
+--> vector<LPoint2D> &mps = submap.mps
+--> if "0 <= size_t j < mps.size()" as for_j then
+--> [Yes] "LPoint2D &mp = mps[j] \n size_t idx = mps.sid"
+--> if "idx >= poses.size()"
+--> [Yes] for_j
+else
+--> [No] "const Pose2D &oldPose = poses[idx]
+const Pose2D &newPose = newPoses[idx]"
+--> "const double (*R1)[2] = oldPose.Rmat
+const double (*R2)[2] = newPose.Rmat"
+--> "LPoint2D lp1 = oldPose.relativePoint(mp)
+LPoint2D lp2 = newPoses.globalPoint(lp1)"
+--> "mp.x = lp2.x \n mp.y = lp2.y"
+--> "double nx = R1[0][0] * mp.nx + R1[1][0] * mp.ny
+double ny = R1[0][1] * mp.nx + R1[1][1] * mp.ny
+double nx2 = R2[0][0] * nx + R2[0][1] * ny
+double ny2 = R2[1][0] * nx + R2[1][1] * ny"
+--> "mp.setNormal(nx2, ny2)"
+--> for_j
+else
+for_j --> [No] for_i
+else
+for_i -> [No] "makeGlobalMap()"
+--> if "0 <= size_t k < poses.size()" as for_k then
+--> [Yes] "poses[k] = newPoses[k]"
+--> for_k
+else
+-> [No] "lastPose = newPoses.back()"
+--> (*)
+
+@enduml

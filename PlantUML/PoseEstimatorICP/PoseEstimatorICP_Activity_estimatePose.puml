@@ -1,0 +1,40 @@
+@startuml
+
+/'
+    giving init pose, calculate est pose by ICP
+    input1: Pose2D &initPose
+    input2: Pose2D &estPose
+'/
+
+(*) --> "boost::timer tim"
+--> "evmin = HUGE_VAL \n evthre = 0.000001"
+--> "popt->setEvthre(evthre) \n popt->setEvlimit(0.2)"
+--> "double ev = 0 \n double evold = evmin \n Pose2D pose = initPose \n Pose2D poseMin = initPose"
+--> if "0 <= size_t i < 100 && \n abs(evold - ev) > evthre" as judge_i then
+        --> [Yes] if "i > 0" as i0 then
+                        --> [Yes] "evold = ev"
+                        --> "double mratio = dass->findCorrespondence(curScan, pose)"
+                  else
+                        i0 --> [No] "double mratio = dass->findCorrespondence(curScan, pose)"
+        --> "Pose2D newPose"
+        --> "popt->setPoints(dass->curLps, dass->refLps)"
+        --> "ev = popt->optimizePose(pose, newPose)"
+        --> pose = newPose
+        --> if "ev < evmin" as judge_ev then
+            --> [Yes] "poseMin = newPose \n evmin = ev"
+            --> judge_i
+            else
+            --> [No] judge_i
+        else
+        judge_i -> [No] "pnrate = popt->getPnrate() \n usedNum = dass->curLps.size()"
+        --> "estPose = poseMin"
+        --> "double t1 = 1000 * tim.elapsed()"
+        --> if "evmin < HUGE_VAL" then
+            --> [Yes] "totalError += evmin"
+            --> "totalTime += t1"
+            else
+            --> [No] "totalTime += t1"
+            --> return(evmin)
+            --> (*)
+
+@enduml

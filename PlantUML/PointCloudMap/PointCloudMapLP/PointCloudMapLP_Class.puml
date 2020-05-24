@@ -1,0 +1,35 @@
+@startuml
+
+!include ../../PointCloudMap/PointCloudMap_Class.puml
+
+class Submap <<struct>> {
+    double atdS
+    size_t cntS
+    size_t cntE
+    std::vector<LPoint2D> mps
+    Submap() : atdS(0), cntS(0), cntE(-1){}
+    Submap(double a, size_t s) : cntE(-1){atdS = a; cntS = s}
+    void addPoints(const std::vector<LPoint2D> &lps)
+    std::vector<LPoint2D> subsamplePoints(int nthre)
+}
+
+class PointCloudMapLP{
+    + {static} double atdThre
+    + double atd
+    + std::vector<Submap> submaps
+    + PointCloudMapLP(){Submap submap; submap.emplace_back(submap)}
+    + ~PointCloudMapLP()
+    + Pose2D getLastPose() const {return(lastPose)}
+    + void setLastPose(Pose2D &p){lastPose = p}
+    + std::vector<Submap> &getSubmaps(){return(submaps)}
+    + virtual void addPose(const Pose2D &p)
+    + virtual void addPoints(const std::vector<LPoint2D> &lps)
+    + virtual void makeGlobalMap()
+    + virtual void makeLocalMap()
+    + virtual void remakeMaps(const std::vector<Pose2D> &newPoses)
+}
+
+PointCloudMapLP --|> PointCloudMap
+PointCloudMapLP o-- Submap
+
+@enduml

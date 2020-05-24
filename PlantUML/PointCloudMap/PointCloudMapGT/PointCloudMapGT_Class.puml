@@ -1,0 +1,22 @@
+@startuml
+
+!include ../../PointCloudMap/PointCloudMap_Class.puml
+!include ../../NNGridTable/NNGridTable_Class.puml
+
+class PointCloudMapGT{
+    + std::vector<LPoint2D> allLps
+    + NNGridTable nntab
+    + PointCloudMapBS(){allLps.reserve()MAX_POINT_NUM}
+    + ~PointCloudMapBS()
+    + virtual void addPose(const Pose2D &p)
+    + virtual void addPoints(const std::vector<LPoint2D> &lps)
+    + virtual void makeGlobalMap()
+    + virtual void makeLocalMap()
+    + void subsamplePoints(std::vector<LPoint2D> &sps)
+    + virtual void remakeMaps(const std::vector<Pose2D> &newPoses)
+}
+
+PointCloudMapGT --|> PointCloudMap
+PointCloudMapGT o-- NNGridTable
+
+@enduml

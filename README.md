@@ -59,7 +59,7 @@ Each node has a the following content.
 |[DataAssociator](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/DataAssociator)|To associate data|
 |[PoseOptimizer](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseOptimizer)|To minimize cost function|
 |[CostFunction](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CostFunction)|Cost function|
-|PointCloudMap|To manage point cloud map|
+|[PointCloudMap](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap)|To manage point cloud map|
 |ScanPointResampler|To equalize space between scan point|
 |ScanPointAnalyzer|To calculate normal vector of scan point|
 |CovarianceCalculator|To calculate covariance|
@@ -89,9 +89,9 @@ Each node has a the following content.
 |[PoseOptimizerSL](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseOptimizer/PoseOptimizerSL)|Optimization by Steepest descent and Line search|
 |[DataAssociatorLS](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/DataAssociator/DataAssociatorLS)|Data association by Linear search|
 |[DataAssociatorGT](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/DataAssociator/DataAssociatorGT)|Data association by Grid table|
-|PointCloudMapBS|Point cloud map management by saving all of scan points|
-|PointCloudMapGT|Point cloud map management by Grid table|
-|PointCloudMapLP|Partial map management by Grid table|
+|[PointCloudMapBS](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap/PointCloudMapBS)|Point cloud map management by saving all of scan points|
+|[PointCloudMapGT](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap/PointCloudMapGT)|Point cloud map management by Grid table|
+|[PointCloudMapLP](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap/PointCloudMapLP)|Partial map management by Grid table|
 |LoopDetectorSS|To detect loop by partial map|
 
 * Vertical arrow means a function is called.

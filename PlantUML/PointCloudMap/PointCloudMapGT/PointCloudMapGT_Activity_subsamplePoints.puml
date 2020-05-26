@@ -1,0 +1,17 @@
+@startuml
+
+/'
+    calculate sub sample point at each cell in grid table
+    store the point to sps
+    input: vector<LPoint2D> &sps
+'/
+
+(*) --> "nntab.clear()"
+--> if "0 <= size_t i < allLps.size()" as for_i then
+--> [Yes] "nntab.addPoint(&(allLps[i]))"
+--> for_i
+else
+-> [No] "nntab.makeCellPoints(nthre, sps)"
+--> (*)
+
+@enduml

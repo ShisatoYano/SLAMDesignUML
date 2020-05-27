@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    create point cloud local map
+    global map is used as local map
+'/
+
+(*) --> "localMap = globalMap"
+--> (*)
+
+@enduml

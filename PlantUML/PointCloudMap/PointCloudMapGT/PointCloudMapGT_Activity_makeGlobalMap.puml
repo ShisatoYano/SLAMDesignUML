@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    create point cloud global map
+'/
+
+(*) --> "globalMap.clear()"
+--> "subsamplePoints(globalMap)"
+--> (*)
+
+@enduml

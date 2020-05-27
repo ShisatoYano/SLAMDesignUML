@@ -1,0 +1,14 @@
+@startuml
+
+/'
+    add scan points
+    input: const vector<LPoint2D> &lps
+'/
+
+(*) --> if "0 <= size_t < lps.size()" as for_i then
+--> [Yes] "allLps.emplace_back(lps[i])"
+--> for_i
+else
+-> [No] (*)
+
+@enduml

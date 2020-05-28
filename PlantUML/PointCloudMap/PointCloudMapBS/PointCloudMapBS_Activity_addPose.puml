@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    add robot pose
+    input: const Pose2D &p
+'/
+
+(*) --> "poses.emplace_back(p)"
+--> (*)
+
+@enduml

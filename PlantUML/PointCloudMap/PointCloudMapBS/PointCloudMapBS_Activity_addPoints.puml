@@ -1,0 +1,15 @@
+@startuml
+
+/'
+    add scan point cloud
+    input: const vector<LPoint2D> &lps
+'/
+
+(*) --> "int skip = 5"
+--> if "0 <= size_t i < lps.size() \n i+=skip" as for_i then
+--> [Yes] "globalMap.emplace_back(lps[i])"
+--> for_i
+else
+-> [No] (*)
+
+@enduml

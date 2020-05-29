@@ -62,7 +62,7 @@ Each node has a the following content.
 |[PointCloudMap](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap)|To manage point cloud map|
 |ScanPointResampler|To equalize space between scan point|
 |ScanPointAnalyzer|To calculate normal vector of scan point|
-|CovarianceCalculator|To calculate covariance|
+|[CovarianceCalculator](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CovarianceCalculator)|To calculate covariance|
 |PoseFuser|Sensor fusion|
 
 * Utility and class definition

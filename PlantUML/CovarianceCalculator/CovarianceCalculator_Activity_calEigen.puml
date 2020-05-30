@@ -1,0 +1,23 @@
+@startuml
+
+/'
+    input1: const Eigen::Matrix3d &cov
+    input2: double *vals
+    input3: double *vec1
+    input4: double *vec2
+'/
+
+(*) --> "double cv2[2][2]"
+--> if "0 <= int i < 2" as for_i then
+--> [Yes] if "0 <= int j < 2" as for_j then
+--> [Yes] "cv2[i][j] = cov(i, j)"
+--> for_j
+else
+--> [No] for_i
+else
+for_i -> [No] "MyUtil::calEigen2D(cv2, vals, vec1, vec2)"
+--> "double ratio = vals[0] / vals[1]"
+--> "return(ratio)"
+--> (*)
+
+@enduml

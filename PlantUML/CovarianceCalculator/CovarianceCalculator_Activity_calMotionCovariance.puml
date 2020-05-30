@@ -1,0 +1,44 @@
+@startuml
+
+/'
+    error covariance per 1 frame
+    dT is time for 1 frame
+    input1: double th
+    input2: double dx
+    input3: double dy
+    input4: double dth
+    input5: double dt
+    input6: Eigen::Matrix3d &cov
+    input7: bool accum
+'/
+
+(*) --> "setAlpha(1, 5)"
+--> "dis = sqrt(dx * dx + dy * dy)"
+--> "vt = dis/dT
+wt = dth/dT
+vthre = 0.001
+wthre = 0.01"
+--> if "vt < vthre" as if_vt then
+--> [Yes] "vt = vthre"
+--> if "wt < wthre" as if_wt then
+else
+if_vt --> [No] if_wt
+--> [Yes] "wt = wthre"
+--> "Eigen::Matrix3d A = Eigen::Matrix3dZero(3, 3)"
+else
+--> [No] "Eigen::Matrix3d A = Eigen::Matrix3dZero(3, 3)"
+--> if "accum" as if_acc then
+--> [Yes] "Eigen::Matrix3d Jxk
+calJxk(th, vt, dt, Jxk)
+A = Jxk * cov * Jxk.transpose()"
+--> "Eigen::Matrix2d Uk"
+else
+--> [No] "Eigen::Matrix2d Uk"
+--> "calUk(vt, wt, Uk)"
+--> "Eigen::Matrix<double, 3, 2> Juk
+calJuk(th, dt, Juk)
+Eigen::Matrix3d B = Juk * Uk * Juk.transpose()"
+--> "cov = A + B"
+--> (*)
+
+@enduml

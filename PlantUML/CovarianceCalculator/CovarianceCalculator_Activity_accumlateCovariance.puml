@@ -1,0 +1,23 @@
+@startuml
+
+/'
+    input1: const Pose2D &curPose
+    input2: const Pose2D &prevPose
+    input3: Eigen::Matrix3d &prevCov
+    input4: const Eigen::Matrix3d &mcov
+    input5: Eigen::Matrix3d &curCov
+'/
+
+(*) --> "Eigen::Matrix3d J1, J2"
+--> "J1 << 1, 0, -(curPose.ty - prevPose.ty)
+0, 1, curPose.tx - prevPose.tx
+0, 0, 1"
+--> "double prevCos = cos(DEG2RAD(prevPose.th))
+double prevSin = sin(DEG2RAD(prevPose.th))"
+--> "J2 << prevCos, -prevSin, 0
+prevSin, prevCos, 0
+0, 0, 1"
+--> "curCov = J1 * prevCov * J1.transpose() + J2 * mcov * J2.transpose()"
+--> (*)
+
+@enduml

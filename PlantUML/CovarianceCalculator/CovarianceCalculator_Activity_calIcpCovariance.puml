@@ -1,0 +1,45 @@
+@startuml
+
+/'
+    calculate covariance of estimated robot position by ICP.
+    input1: const Pose2D &pose
+    input2: std::vector<const LPoint2D*> &curLps
+    input3: std::vector<const LPoint2D*> &refLps
+    input4: Eigen::Matrix3d &cov
+'/
+
+(*) --> "double tx = pose.tx \n double ty = pose.ty \n double th = pose.th \n double a = DEG2RAD(th)"
+--> "vector<double> Jx \n vector<double> Jy \n vector<double> Jt"
+--> if "0 <= size_t i < curLps.size()" as for_i then
+--> [Yes] "const LPoint2D *clp = curLps[i] \n const LPoint2D *rlp = refLps[i]"
+--> if "rlp->type == ISOLATE"
+--> [Yes] for_i
+else
+--> [No] "double pd0 = calPDistance(clp, rlp, tx, ty, a)
+double pdx = calPDistance(clp, rlp, tx+dd, ty, a)
+double pdy = calPDistance(clp, rlp, tx, ty+dd, a)
+double pdt = calPDistance(clp, rlp, tx, ty, a+da)"
+--> "Jx.push_back((pdx - pd0)/dd)
+Jy.push_back((pdy - pd0)/dd)
+Jt.push_back((pdt - pd0)/da)"
+--> for_i
+else
+for_i -> [No] "Eigen::Matrix3d hes = Eigen::Matrix3d::Zero(3, 3)"
+--> if "0 <= size_t j < Jx.size()" as for_j then
+--> [Yes] "hes(0, 0) += Jx[i] * Jx[i]
+hes(0, 1) += Jx[i] * Jy[i]
+hes(0, 2) += Jx[i] * Jt[i]
+hes(1, 1) += Jy[i] * Jy[i]
+hes(1, 2) += Jy[i] * Jt[i]
+hes(2, 2) += Jt[i] * Jt[i]"
+--> for_j
+else
+-> [No] "hes(1, 0) = hes(0, 1)
+hes(2, 0) = hes(0, 2)
+hes(2, 1) = hes(1, 2)"
+--> "cov = MyUtil::svdInverse(hes)"
+--> "double vals[2], vec1[2], vec2[2] \n double ratio = calEigen(cov, vals, vec1, vec2)"
+--> "double kk = 0.1 \n cov *= kk"
+--> (*)
+
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+
+/'
+    calculate Jacobi matrix of robot pose
+    input1: double th
+    input2: double vt
+    input3: double dt
+    input4: Eigen::Matrix3d &Jxk
+'/
+
+(*) --> "double cs = cos(th)
+double sn = sin(th)"
+--> "Jxk << 1, 0, -vt * dt * sn
+0, 1, vt * dt * cs
+0, 0, 1"
+--> (*)
+
+@enduml

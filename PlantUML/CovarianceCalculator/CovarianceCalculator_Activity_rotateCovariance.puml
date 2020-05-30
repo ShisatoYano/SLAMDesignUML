@@ -1,0 +1,24 @@
+@startuml
+
+/'
+    input1: const Pose2D &pose
+    input2: const Eigen::Matrix3d &cov
+    input3: const Eigen::Matrix3d &icov
+    input4: bool reverse
+'/
+
+(*) --> "double cs = cos(DEG2RAD(pose.th))
+double sn = sin(DEG2RAD(pose.th))"
+--> "Eigen::Matrix3d J"
+--> "J << cs, -sn, 0
+sn, cs, 0
+0, 0, 1"
+--> "Eigen::Matrix3d JT = J.transpose()"
+--> if "reverse"
+--> [Yes] "icov = JT * cov * J"
+--> (*)
+else
+--> [No] "icov = J * cov * JT"
+--> (*)
+
+@enduml

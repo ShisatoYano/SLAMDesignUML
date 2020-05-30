@@ -1,0 +1,31 @@
+@startuml
+
+/'
+    calculate motion model and covariance
+    input1: const Pose2D &motion
+    input2: double dT
+    input3: Eigen::Matrix3d &cov
+'/
+
+(*) --> "double dis = sqrt(motion.tx * motion.tx + motion.ty * motion.ty)"
+--> "vt = dis/dT
+wt = DEG2RAD(motion.th)/dT
+vthre = 0.02
+wthre = 0.05"
+--> if "vt < vthre" as if_vt then
+--> [Yes] "vt = vthre"
+--> if "wt < wthre" as if_wt then
+else
+if_vt --> [No] if_wt
+--> [Yes] "wt = wthre"
+--> "double dx = vt \n double dy = vt \n da = wthre"
+else
+--> [No] "double dx = vt \n double dy = vt \n da = wthre"
+--> "Eigen::Matrix3d C1 \n C1.setZero()
+C1(0, 0) = 0.001 * dx * dx
+C1(1, 1) = 0.005 * dy * dy
+C1(2, 2) = 0.05 * da * da"
+--> "double kk = 1 \n cov = kk * C1"
+--> (*)
+
+@enduml

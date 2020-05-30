@@ -1,0 +1,16 @@
+@startuml
+
+/'
+    input1: double th
+    input2: double dt
+    input3: Matrix<double, 3, 2> &Juk
+'/
+
+(*) --> "double cs = cos(th)
+double sn = sin(th)
+Juk << dt * cs, 0,
+dt * sn, 0
+0, dt"
+--> (*)
+
+@enduml

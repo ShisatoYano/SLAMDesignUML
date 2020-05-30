@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    input1: double vt
+    input2: double wt
+    input3: Eigen::Matrix2d &Uk
+'/
+
+(*) --> "Uk << a1 * vt * vt, 0,
+0, a2 * wt * wt"
+--> (*)
+
+@enduml

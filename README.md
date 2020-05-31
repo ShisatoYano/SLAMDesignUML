@@ -63,7 +63,7 @@ Each node has a the following content.
 |ScanPointResampler|To equalize space between scan point|
 |ScanPointAnalyzer|To calculate normal vector of scan point|
 |[CovarianceCalculator](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CovarianceCalculator)|To calculate covariance|
-|PoseFuser|Sensor fusion|
+|[PoseFuser](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseFuser)|Sensor fusion|
 
 * Utility and class definition
 

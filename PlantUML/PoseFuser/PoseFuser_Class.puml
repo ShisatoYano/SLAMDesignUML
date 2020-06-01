@@ -1,0 +1,21 @@
+@startuml
+
+!include ../DataAssociator/DataAssociator_Class.puml
+!include ../CovarianceCalculator/CovarianceCalculator_Class.puml
+
+class PoseFuser{
+    + Eigen::Matrix3d ecov
+    + Eigen::Matrix3d mcov
+    + Eigen::Matrix3d totalCov
+    + DataAssociator *dass
+    + CovarianceCalculator *cvc
+    + PoseFuser()
+    + ~PoseFuser()
+    + void setDataAssociator(DataAssociator *d){dass = d}
+    + void setRefScan(const Scan2D *refScan){dass->setRefBase(refScan->lps)}
+}
+
+PoseFuser o-- DataAssociator
+PoseFuser o-- CovarianceCalculator
+
+@enduml

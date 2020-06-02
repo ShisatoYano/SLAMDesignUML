@@ -13,6 +13,7 @@ class PoseFuser{
     + ~PoseFuser()
     + void setDataAssociator(DataAssociator *d){dass = d}
     + void setRefScan(const Scan2D *refScan){dass->setRefBase(refScan->lps)}
+    + void setRefLps(const std::vecot<LPoint2D> &refLps){dass->setRefBase(refLps)}
 }
 
 PoseFuser o-- DataAssociator

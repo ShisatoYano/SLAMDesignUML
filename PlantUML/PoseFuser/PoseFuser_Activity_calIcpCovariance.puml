@@ -1,0 +1,15 @@
+@startuml
+
+/'
+    calculate covariance matrix by ICP
+    input1: const Pose2D &estMotion
+    input2: const Scan2D *curScan
+    input3: Eigen::Matrix3d &cov
+'/
+
+(*) --> "dass->findCorrespondence(curScan, estMotion"
+--> "double ratio = cvc.calIcpCovariance(estMotion, dass->curLps, dass->refLps, cov)"
+--> "return(ratio)"
+--> (*)
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+
+/'
+    fusing estimated pose by ICP and motion by odometry
+    input1: Scan2D *curScan
+    input2: const Pose2D &estPose
+    input3: const Pose2D &odoMotion
+    input4: const Pose2D &lastPose
+    input5: Pose2D &fusedPose
+    input6: Eigen::Matrix3d &fusedCov
+'/
+
+(*) --> "dass->findCorrespondence(curScan, estPose)"
+--> "double ratio = cvc.calIcpCovariance(estPose, dass->curLps, dass->refLps, ecov"
+--> "Pose2D predPose
+Eigen::Matrix3d mcovL
+double dT = 0.1"
+--> "Pose2D::calGlobalPose(odoMotion, lastPose, predPose)"
+--> "cvc.calMotionCovariance(odoMotion, dT, mcovL)"
+--> "CovarianceCalculator::rotateCovariance(estPose, mcovL, mcov)"
+--> "Eigen::Vector3d mu1(estPose.tx, estPose.ty, DEG2RAD(estPose.th))
+Eigen::Vector3d mu2(predPose.tx, predPose.ty, DEG2RAD(predPose.th))
+Eigen::Vector3d mu
+fuse(mu1, ecov, mu2, mcov, mu, fusedCov)"
+--> "fusedPose.setVal(mu[0], mu[1], RAD2DEG(mu[2]))"
+--> "totalCov = fusedCov"
+--> "return(ratio)"
+--> (*)
+
+@enduml

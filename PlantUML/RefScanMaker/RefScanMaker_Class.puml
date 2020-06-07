@@ -1,0 +1,16 @@
+@startuml
+
+!include ../PointCloudMap/PointCloudMap_Class.puml
+
+class RefScanMaker{
+    # const PointCloudMap *pcmap
+    # Scan2D refScan
+    + RefScanMaker()
+    + ~RefScanMaker()
+    + void setPointCloudMap(const PointCloudMap *p){pcmap = p}
+    + virtual const Scan2D *makeRefScan() = 0
+}
+
+RefScanMaker o-- PointCloudMap
+
+@enduml

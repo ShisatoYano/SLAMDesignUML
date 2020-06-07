@@ -54,7 +54,7 @@ Each node has a the following content.
 |SlamBackEnd|Backend process of SLAM|
 |LoopDetector|To detect loop|
 |ScanMatcher2D|To supervise Scan matching|
-|RefScanMaker|To generate reference scan|
+|[RefScanMaker](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/RefScanMaker)|To generate reference scan|
 |[PoseEstimatorICP](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseEstimatorICP)|To calculate robot position by ICP|
 |[DataAssociator](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/DataAssociator)|To associate data|
 |[PoseOptimizer](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseOptimizer)|To minimize cost function|

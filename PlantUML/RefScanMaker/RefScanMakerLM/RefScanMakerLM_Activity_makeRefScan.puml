@@ -1,0 +1,18 @@
+@startuml
+
+/'
+    reference scan points is made from local map data
+'/
+
+(*) --> "vector<LPoint2D> &localMap = pcmap->localMap
+refLps.clear()"
+--> "const vector<LPoint2D> &localMap = pcmap->localMap"
+--> if "0 <= size_t i < localMap.size()" as for_i then
+--> [Yes] "const LPoint2D &rp = localMap[i]
+refLps.emplace_back(rp)"
+--> for_i
+else
+-> [No] "return(refScan)"
+-> (*)
+
+@enduml

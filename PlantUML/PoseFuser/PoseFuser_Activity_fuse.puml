@@ -1,0 +1,51 @@
+@startuml
+
+/'
+    fuse 2 gaussian distributions
+    mu: average
+    cv: covariance
+    input1: const Eigen::Vector3d &mu1
+    input2: const Eigen::Matrix3d &cv1
+    input3: const Eigen::Vector3d &mu2
+    input4: const Eigen::Matrix3d &cv2
+    input5: const Eigen::Vector3d &mu
+    input6: const Eigen::Matrix3d &cv
+'/
+
+(*) --> "Eigen::Matrix3d IC1 = MyUtil::svdInverse(cv1)
+Eigen::Matrix3d IC2 = MyUtil::svdInverse(cv2)
+Eigen::Matrix3d IC = IC1 + IC2
+cv = MyUtil::svdInverse(IC)"
+--> "Eigen::Vector3d mu11 = mu1
+double da = mu2(2) - mu1(2)"
+--> if "da > M_PI" then
+--> [Yes] "mu11(2) += 2 * M_PI"
+--> "Eigen::Vector3d nu1 = IC1 * mu11"
+else
+--> [No] if "da < -M_PI" then
+--> [Yes] "mu11(2) -= 2 * M_PI"
+--> "Eigen::Vector3d nu1 = IC1 * mu11"
+else
+--> [No] "Eigen::Vector3d nu1 = IC1 * mu11"
+--> "Eigen::Vector3d nu2 = IC2 * mu2
+Eigen::Vector3d nu3 = nu1 + nu2
+mu = cv * nu3"
+--> if "mu(2) > M_PI" then
+--> [Yes] "mu(2) -= 2 * M_PI"
+--> "Eigen::Vector3d W1 = IC1 * mu11"
+else
+--> [No] if "mu(2) < M_PI" then
+--> [Yes] "mu(2) += 2 * M_PI"
+--> "Eigen::Vector3d W1 = IC1 * mu11"
+else
+--> "Eigen::Vector3d W1 = IC1 * mu11"
+--> "Eigen::Vector3d W2 = IC2 * mu2
+Eigen::Vector3d W = IC * mu"
+--> "double A1 = mu1.dot(W1)
+double A2 = mu2.dot(W2)
+double A = mu.dot(W)
+double K = A1 + A2 - A"
+--> return(K)
+--> (*)
+
+@enduml

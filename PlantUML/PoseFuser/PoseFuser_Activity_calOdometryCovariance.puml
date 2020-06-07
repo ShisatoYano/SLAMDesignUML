@@ -1,0 +1,16 @@
+@startuml
+
+/'
+    calculate covariance of odometry motion
+    input1: const Pose2D &odoMotion
+    input2: const Pose2D &lastPose
+    input3: Eigen::Matrix3d &mcov
+'/
+
+(*) --> "Eigen::Matrix3d mcovL"
+--> "double dT = 0.1"
+--> "cvc.calMotionCovarianceSimple(odoMotion, dt, mcovL)"
+--> "CovarianceCalculator::rotateCovariance(lastPose, mcovL, mcov)"
+--> (*)
+
+@enduml

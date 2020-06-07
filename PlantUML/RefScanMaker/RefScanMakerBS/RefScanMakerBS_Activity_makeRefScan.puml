@@ -1,0 +1,28 @@
+@startuml
+
+/'
+    make scan point cloud as reference
+    last scan point cloud recorded on the map is selected
+'/
+
+(*) --> "vector<LPoint2D> &refLps = refScan.lps
+refLps.clear()"
+--> "Pose2D lastPose = pcmap->getLastPose()
+double (*R)[2] = lastPose.Rmat
+double tx = lastPose.tx
+double ty = lastPose.ty"
+--> "const vector<LPoint2D> &lps = pcmap->lastScan.lps"
+--> if "0 <= size_t i < lps.size()" as for_i then
+--> [Yes] "const LPoint2D &mp = lps[i]"
+--> "LPoint2D rp
+rp.x = R[0][0] * mp.x + R[0][1] * mp.y + tx
+rp.y = R[1][0] * mp.x + R[1][1] * mp.y + ty
+rp.nx = R[0][0] * mp.nx + R[0][1] * mp.ny
+rp.ny = R[1][0] * mp.nx + R[1][1] * mp.ny
+refLps.emplace_back(rp)"
+--> for_i
+else
+-> [No] "return(&refScan)"
+-> (*)
+
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+
+!include ../../RefScanMaker/RefScanMaker_Class.puml
+
+class RefScanMakerBS{
+    + RefScanMakerBS()
+    + ~RefScanMakerBS()
+    + virtual const Scan2D *makeRefScan()
+}
+
+RefScanMakerBS -|> RefScanMaker
+
+@enduml

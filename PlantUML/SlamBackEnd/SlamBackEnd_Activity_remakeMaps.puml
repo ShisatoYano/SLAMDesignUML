@@ -1,0 +1,13 @@
+@startuml
+
+(*) --> "vector<PoseNode*> &pnodes = pg->nodes"
+--> if "0 <= size_t i < newPoses.size()" as for_i then
+--> [Yes] "Pose2D &npose = newPoses[i]"
+--> "PoseNode *pnode = pnodes[i]"
+--> "pnode->setPose(npose)"
+--> for_i
+else
+-> [No] "pcmap->remakeMaps(newPoses)"
+--> (*)
+
+@enduml

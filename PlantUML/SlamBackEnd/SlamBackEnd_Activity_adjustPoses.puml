@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    return adjusted pose
+'/
+
+(*) --> "newPoses.clear()"
+--> "P2oDriver2D p2o"
+--> "doP2o(*pg, newPoses, 5)"
+--> "return(newPoses.back())"
+--> (*)
+
+@enduml

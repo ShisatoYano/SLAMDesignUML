@@ -1,0 +1,21 @@
+@startuml
+
+!include ../PointCloudMap/PointCloudMap_Class.puml
+!include ../PoseGraph/PoseGraph_Class.puml
+
+class SlamBackEnd{
+    - std::vector<Pose2D> newPoses
+    - PointCloudMap *pcmap
+    - PoseGraph *pg
+    + SlamBackEnd()
+    + ~SlamBackEnd()
+    + void setPointCloudMap(PointCloudMap *m){pcmap = m}
+    + void setPoseGraph(PoseGraph *g){pg = g}
+    + Pose2D adjustPoses()
+    + void remakeMaps()
+}
+
+SlamBackEnd o-- PointCloudMap
+SlamBackEnd o-- PoseGraph
+
+@enduml

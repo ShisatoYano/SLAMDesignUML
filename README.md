@@ -52,7 +52,7 @@ Each node has a the following content.
 |FrameworkCustomizer|Helper to cutomize program|
 |SlamFrontEnd|Frontend process of SLAM|
 |[SlamBackEnd](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/SlamBackEnd)|Backend process of SLAM|
-|LoopDetector|To detect loop|
+|[LoopDetector](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/LoopDetector)|To detect loop|
 |ScanMatcher2D|To supervise Scan matching|
 |[RefScanMaker](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/RefScanMaker)|To generate reference scan|
 |[PoseEstimatorICP](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseEstimatorICP)|To calculate robot position by ICP|

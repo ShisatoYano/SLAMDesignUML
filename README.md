@@ -92,7 +92,7 @@ Each node has a the following content.
 |[PointCloudMapBS](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap/PointCloudMapBS)|Point cloud map management by saving all of scan points|
 |[PointCloudMapGT](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap/PointCloudMapGT)|Point cloud map management by Grid table|
 |[PointCloudMapLP](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap/PointCloudMapLP)|Partial map management by Grid table|
-|LoopDetectorSS|To detect loop by partial map|
+|[LoopDetectorSS](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/LoopDetector/LoopDetectorSS)|To detect loop by partial map|
 
 * Vertical arrow means a function is called.
 * Horizontal arrow means a process sequence.

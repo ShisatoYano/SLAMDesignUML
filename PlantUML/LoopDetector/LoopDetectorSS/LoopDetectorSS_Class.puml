@@ -1,0 +1,32 @@
+@startuml
+
+!include../../LoopDetector/LoopDetector_Class.puml
+!include../../PointCloudMap/PointCloudMapLP/PointCloudMapLP_Class.puml
+!include../../DataAssociator/DataAssociator_Class.puml
+!include../../PoseEstimatorICP/PoseEstimatorICP_Class.puml
+!include../../PoseFuser/PoseFuser_Class.puml
+
+class LoopDetectorSS{
+    - double radius
+    - double atdthre
+    - double scthre
+    - PointCloudMapLP *pcmap
+    - CostFunction *cfunc
+    - PoseEstimatorICP *estim
+    - DataAssociator *dass
+    - PoseFuser *pfu
+    + LoopDetectorSS() : radius(4), atdthre(10), scthre(0.2)
+    + ~LoopDetectorSS()
+    + setPoseEstimator(PoseEstimatorICP *p){estim = p}
+    + setPoseFuser(PoseFuser *p){pfu = p}
+    + setDataAssociator(DataAssociator *d){dass = d}
+    + setCostFunction(CostFunction *f){cfunc = f}
+    + setPointCloudMap(PointCloudMapLP *p){pcmap = p}
+    + virtual bool detectLoop(Scan2D *curScan, Pose2D &curPose, int cnt)
+    + void makeLoopArc(LoopInfo &info)
+    + bool estimateRevisitPose(const Scan2D *curScan, const std::vector<LPoint2D> &refLps, const Pose2D &initPose, Pose2D &revisitPose)
+}
+
+LoopDetectorSS --|> LoopDetector
+
+@enduml

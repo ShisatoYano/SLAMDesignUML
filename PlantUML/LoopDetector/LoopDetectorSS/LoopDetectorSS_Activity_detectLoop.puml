@@ -1,0 +1,54 @@
+@startuml
+
+/'
+    find location where is close to curPose and matched with curScan.
+    input1: Scan2D *curScan
+    input2: Pose2D &curPose
+    input3: int cnt
+'/
+
+(*) --> "double atd = pcmap->atd \n double atdR = 0"
+--> "const vector<Submap> &submaps = pcmap->submaps
+const vector<Pose2D> &poses = pcmap->poses"
+--> "double dmin = HUGE_VAL \n size_t imin = 0, jmin = 0 \n Pose2D prevP"
+--> if "0 <= size_t i < submaps.size()-1" as for_i then
+--> [Yes] "const Submap &submap = submaps[i]"
+--> if "submap.cntS <= size_t j < submap.cntE" as for_j then
+--> [Yes] "Pose2D p = poses[j]
+atdR += sqrt((p.tx - prevP.tx)*(p.tx - prevP.tx) + (p.ty - prevP.ty)*(p.ty - prevP.ty))"
+--> if "atd - atdR < atdthre" then
+--> [Yes] "i = submaps.size()"
+--> for_i
+else
+for_j --> [No] for_i
+else
+--> [No] "prevP = p \n double d = (curPose.tx - p.tx)*(curPose.tx - p.tx) + (curPose.ty - p.ty)*(curPose.ty - p.ty)"
+--> if "d < dmin" then
+--> [Yes] "dmin = d \n imin = i \n jmin = j"
+--> for_j
+else
+--> [No] for_j
+else
+for_i -> [No] if "dmin > radius * radius" then
+--> [Yes] "return(false)"
+--> (*)
+else
+-> [No] "Submap &refSubmap = pcmap->submaps[imin]"
+--> "const Pose2D &initPose = poses[jmin]"
+--> "Pose2D revisitPose
+bool flag = estimateRevisitPose(curScan, refSubmap.mps, curPose, revisitPose"
+--> if "flag"
+--> [Yes] "Eigen::Matrix3d icpCov
+double ratio = pfu->calIcpCovariance(revisitPose, curScan, icpCov)"
+--> "LoopInfo info
+info.pose = revisitPose
+info.cov = icpCov
+info.curId = cnt
+info.refId = static_cast<int>(jmin)
+makeLoopArc(info)"
+--> "return(flag)"
+else
+--> [No] "return(flag)"
+--> (*)
+
+@enduml

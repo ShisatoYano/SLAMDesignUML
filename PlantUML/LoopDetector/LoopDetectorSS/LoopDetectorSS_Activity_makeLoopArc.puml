@@ -1,0 +1,22 @@
+@startuml
+
+/'
+    make loop arc from refId to curId
+    input: LoopInfo &info
+'/
+
+(*) --> if "info.arc" then
+--> [Yes] (*)
+else
+--> [No] "info.setArcked(true)"
+--> "Pose2D srcPose = pcmap->poses[info.refId]
+Pose2D dstPose(info.pose.tx, info.pose.ty, info.pose.th)"
+--> "Pose2D relPose
+Pose2D::calRelativePose(dstPose, srcPose, relPose)"
+--> "Eigen::Matrix3d cov
+CovarianceCalculator::rotateCovariance(srcPose, info.cov, cov, true)"
+--> "PoseArc *arc = pg->makeArc(info.refId, info.curId, relPose, cov)
+pg->addArc(arc)"
+--> (*)
+
+@enduml

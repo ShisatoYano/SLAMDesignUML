@@ -1,0 +1,27 @@
+@startuml
+
+/'
+    input1: int idx
+    input2: const vector<LPoint2D> &lps
+    input3: int dir
+    input4: Vector2D &normal
+'/
+
+(*) --> "const LPoint2D &cp = lps[idx]"
+--> if "idx+dir <= int i < lps.size() \n i >= 0, i+=dir" as for_i then
+for_i --> [Yes] "const LPoint2D &lp = lps[i]"
+--> "double dx = lp.x - cp.x
+double dy = lp.y - cp.y
+double d = sqrt(dx*dx + dy*dy)"
+--> if "d >= FPDMIN && d <= FPDMAX"
+--> [Yes] "normal.x = dx/d \n normal.y = -dx/d"
+--> "return(true)"
+else
+--> [No] if "d > FPDMAX" then
+--> [Yes] "return(false)"
+else
+--> [No] for_i
+for_i --> [No] "return(false)"
+--> (*)
+
+@enduml

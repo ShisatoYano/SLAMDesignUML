@@ -1,0 +1,42 @@
+@startuml
+
+/'
+    calculate normal vector
+    decide straight line, corner or isolation
+    input: vector<LPoint2D> &lps
+'/
+
+(*) --> if "0 <= int i < lps.size()" as for_i then
+--> [Yes] "LPoint2D &lp = lps[i]"
+--> "ptype p \n Vector2D nL, nR, normal"
+--> "bool flagL = calNormal(i, lps, -1, nL)
+bool flagR = calNormal(i, lps, -1, nR)"
+--> "nR.x = -nR.x \n nR.y = -nR.y"
+--> if "flagL" as flagL then
+flagL --> [Yes] if "flagR" as flagR then
+else
+flagL -> if "flagR" then
+--> [Yes] "type = LINE \n normal = nR"
+--> "lp.setNormal(normal.x, normal.y) \n lp.setType(type)"
+else
+-> [No] "type = ISOLATE \n normal.x = INVALID \n normal.y = INVALID"
+--> "lp.setNormal(normal.x, normal.y) \n lp.setType(type)"
+flagR --> [Yes] if "fabs(nL.x*nR.x + nL.y*nR.y) >= costh" as costh then
+else
+flagR -> [No] "type = LINE \n normal = nL"
+--> "lp.setNormal(normal.x, normal.y) \n lp.setType(type)"
+costh --> [Yes] "type = LINE"
+--> "double dx = nL.x + nR.x"
+else
+costh --> [No] "type = CORNER"
+--> "double dx = nL.x + nR.x"
+--> "double dy = nL.y + nR.y
+double L = sqrt(dx*dx + dy*dy)
+normal.x = dx/L
+normal.y = dy/L"
+--> "lp.setNormal(normal.x, normal.y) \n lp.setType(type)"
+--> for_i
+else
+for_i -> [No] (*)
+
+@enduml

@@ -1,0 +1,75 @@
+@startuml
+
+/'
+    calculate revisit position by ICP with curScan and refLps
+    input1: const Scan2D *curScan
+    input2: const vector<LPoint2D> &refLps
+    input3: const Pose2D &initPose
+    input4: Pose2D &revisitPose
+'/
+
+(*) --> "dass->setRefBase(refLps)
+cfunc->setEvlimit(0.2)"
+--> "size_t usedNumMin = 50"
+--> "double rangeT = 1
+double rangeA = 45
+double dd = 0.2
+double da = 2
+double pnrateMax = 0
+vector<double> pnrates
+double scoreMin = 1000
+vector<double> scores
+vector<Pose2D> candidates"
+--> if "-rangeT <= double dy <= rangeT \n dy+=dd" as for_dy then
+-> [Yes] "double y = initPose.ty + dy"
+-> if "-rangeT <= double dx <= rangeT \n dx+=dd" as for_dx then
+for_dx -> [No] for_dy
+for_dx -> [Yes] "double x = initPose.tx + dx"
+-> if "-rangeA <= double dth <= rangeA \n dth+=dd" as for_dth then
+for_dth -> [No] for_dx
+for_dth -> [Yes] "double th = MyUtil::add(initPose.th, dth)"
+--> "Pose2D pose(x, y, th)"
+--> "double mratio = dass->findCorrespondence(curScan, pose)
+size_t usedNum = dass->curLps.size()"
+--> if "usedNum < usedNumMin \n || mratio < 0.9"
+--> [Yes] for_dth
+else
+--> [No] "cfunc->setPoints(dass->curLps, dass->refLps)"
+--> "double score = cfunc->calValue(x, y, th)
+double pnrate = cfunc->getPnrate()"
+--> if "pnrate > 0.8" as pnrate then
+--> [Yes] "candidates.emplace_back(pose)"
+else
+pnrate --> [No] for_dth
+"candidates.emplace_back(pose)" --> if "score < scoreMin"
+--> "scoreMin = score"
+--> "scores.puch_back(score)"
+else
+--> [No] "scores.puch_back(score)"
+--> for_dth
+else
+for_dy --> [No] if "candidates.size() == 0" then
+--> [Yes] "return(false)"
+else
+--> [No] "Pose2D best
+double smin = 1000000
+estim->setScanPaire(curScan, refLps)"
+--> if "0 <= size_t i < candidates.size()" as for_i then
+--> [Yes] "Pose2D p = candidates[i]"
+--> "Pose2D estP
+double score = estim->estimatePose(p, estP)
+double pnrate = estim->getPnrate()
+size_t usedNum = estim->getUsedNum()"
+--> if "score < smin && pnrate >= 0.9 \n && usedNum >= usedNumMin" then
+--> [Yes] "smin = score \n best = estP"
+--> for_i
+else
+--> [No] for_i
+else
+for_i -> [No] if "smin <= scthre" then
+--> [Yes] "revisitPose = best"
+--> "return(true)"
+else
+--> [No] "return(false)"
+
+@enduml

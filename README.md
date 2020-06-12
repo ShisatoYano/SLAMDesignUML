@@ -60,7 +60,7 @@ Each node has a the following content.
 |[PoseOptimizer](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseOptimizer)|To minimize cost function|
 |[CostFunction](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CostFunction)|Cost function|
 |[PointCloudMap](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PointCloudMap)|To manage point cloud map|
-|ScanPointResampler|To equalize space between scan point|
+|[ScanPointResampler](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/ScanPointResampler)|To equalize space between scan point|
 |[ScanPointAnalyzer](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/ScanPointAnalyzer)|To calculate normal vector of scan point|
 |[CovarianceCalculator](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/CovarianceCalculator)|To calculate covariance|
 |[PoseFuser](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/PoseFuser)|Sensor fusion|

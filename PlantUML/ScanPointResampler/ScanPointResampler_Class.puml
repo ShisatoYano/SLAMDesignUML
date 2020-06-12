@@ -1,0 +1,21 @@
+@startuml
+
+!include../LPoint2D/LPoint2D_Class.puml
+!include../Scan2D/Scan2D_Class.puml
+
+class ScanPointResampler
+{
+    - double dthreS
+    - double dthreL
+    - dis
+    + ScanPointResampler() : dthreS(0.05), dthreL(0.25), dis(0)
+    + ~ScanPointResampler()
+    + void setDthre(int s, int l){dthreS = s, dthreL = l}
+    + void resamplePoints(Scan2D *scan)
+    + bool findInterpolatePoint(const LPoint2D &cp, const LPoint2D &pp, LPoint2D &np, bool &inserted)
+}
+
+ScanPointResampler --> LPoint2D
+ScanPointResampler --> Scan2D
+
+@enduml

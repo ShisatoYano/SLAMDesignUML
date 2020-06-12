@@ -1,0 +1,20 @@
+@startuml
+
+!include/../LPoint2D/LPoint2D_Class.puml
+
+class ScanPointAnalyzer
+{
+    {static} - const double FPDMIN = 0.06
+    {static} - const double FPDMAX = 1.0
+    {static} - const int CRTHRE = 45
+    {static} - const int INVALID = -1
+    - double costh
+    + ScanPointAnalyzer() : costh(cos(DEG2RAD(CRTHRE)))
+    + ~ScanPointAnalyzer()
+    + void analyzePoints(std::vector<LPoint2D> &lps)
+    + bool calNormal(int idx, const std::vector<LPoint2D> &lps, int dir, Vector2D &normal)
+}
+
+ScanPointAnalyzer --> LPoint2D
+
+@enduml

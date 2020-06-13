@@ -36,4 +36,13 @@ class ScanMatcher2D
     + void growMap(const Scan2D &scan, const Pose2D &pose)
 }
 
+ScanMatcher2D o-- Scan2D
+ScanMatcher2D o-- Pose2D
+ScanMatcher2D o-- PoseEstimatorICP
+ScanMatcher2D o-- PointCloudMap
+ScanMatcher2D o-- ScanPointResampler
+ScanMatcher2D o-- ScanPointAnalyzer
+ScanMatcher2D o-- RefScanMaker
+ScanMatcher2D o-- PoseFuser
+
 @enduml

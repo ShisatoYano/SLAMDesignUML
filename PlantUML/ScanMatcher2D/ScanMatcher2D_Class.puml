@@ -1,0 +1,39 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class ScanMatcher2D
+{
+    - int cnt
+    - Scan2D prevScan
+    - Pose2D initPose
+    - double scthre
+    - double nthre
+    - double atd
+    - bool dgcheck
+    - PoseEstimatorICP *estim
+    - PointCloudMap *pcmap
+    - ScanPointResampler *spres
+    - ScanPointAnalyzer *spana
+    - RefScanMaker *rsm
+    - PoseFuser *pfu
+    - Eigen::Matrix3d cov
+    - Eigen::Matrix3d totalCovs
+    + ScanMatcher2D() : cnt(-1), scthre(1.0), nthre(50), dgcheck(false), atd(0), pcmap(nullptr), spres(nullptr), spana(nullptr), estim(nullptr), rsm(nullptr), pfu(nullptr)
+    + ~ScanMatcher2D()
+    + void setPoseEstimator(PoseEstimatorICP *p){estim = p}
+    + void setPoseFuser(PoseFuser *p){pfu = p}
+    + void setScanPointResampler(ScanPointResampler *p){spres = p}
+    + void setScanPointAnalyzer(ScanPointAnalyzer *p){spana = p}
+    + void setRefScanMaker(RefScanMaker *r){rsm = r; if(pcmap != nullptr) rsm->setPointCloudMap(pcmap);}
+    + void setPointCloudMap(PointCloudMap *m){pcmap = m; if(rsm != nullptr) rsm->setPointCloudMap(pcmap);}
+    + void reset(){cnt = -1}
+    + void setInitPose(Pose2D &p){initPose = p}
+    + void setDgCheck(bool t){dgcheck = t}
+    + Eigen::Matrix3d &getCovariance(){return(cov)}
+    + std::vector<PoseCov> &getPoseCovs(){return(poseCovs)}
+    + bool matchScan(Scan2D &scan)
+    + void growMap(const Scan2D &scan, const Pose2D &pose)
+}
+
+@enduml

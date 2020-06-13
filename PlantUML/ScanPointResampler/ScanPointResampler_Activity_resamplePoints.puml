@@ -1,0 +1,35 @@
+@startuml
+
+/'
+    input: Scan2D *scan
+'/
+
+(*) --> "vector<LPoint2D> &lps = scan->lps"
+--> if "lps.size() == 0" then
+--> [Yes] "return"
+--> (*)
+else
+--> [No] "vector<LPoint2D> newLps"
+--> "dis = 0
+LPoint2D lp = lps[0]
+LPoint2D prevLp = lp
+LPoint2D np(lp.sid, lp.x, lp.y)
+newLps.emplace_back(np)"
+--> if "1 <= size_t i < lps.size()" as for_i then
+for_i --> [No] "scan->setLps(newLps)"
+--> (*)
+else
+for_i -> [Yes] "lp = lps[i] \n bool inserted = false"
+--> "bool exist = findInterpolatePoint(lp, prevLp, np, inserted)"
+--> if "exist" then
+--> [No] "prevLp = lp"
+--> for_i
+else
+-> [Yes] "newLps.emplace_back(np)
+prevLp = np
+dis = 0"
+--> if "inserted"
+--> "i--"
+--> for_i
+
+@enduml

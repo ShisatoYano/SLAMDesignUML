@@ -1,0 +1,30 @@
+@startuml
+
+/'
+    input1: const LPoint2D &cp
+    input2: const LPoint2D &pp
+    input3: LPoint2D &np
+    input4: bool &inserted
+'/
+
+(*) --> "double dx = cp.x - pp.x
+double dy = cp.y - pp.y
+double L = sqrt(dx*dx + dy*dy)"
+--> if "dis+L < dthreS"
+--> [Yes] "dis += L"
+--> "return(false)"
+--> (*)
+else
+-> [No] if "dis+L >= dthreL"
+--> [Yes] "np.setData(cp.sid, cp.x, cp.y)"
+--> "return(true)"
+else
+-> [No] "double ratio = (dthreS - dis)/L
+double x2 = dx * ratio + pp.x
+double y2 = dy * ratio + pp.y"
+--> "np.setData(cp.sid, x2, y2)"
+--> "inserted = true"
+--> "return(true)"
+--> (*)
+
+@enduml

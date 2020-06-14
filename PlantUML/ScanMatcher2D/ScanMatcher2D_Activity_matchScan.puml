@@ -1,0 +1,59 @@
+@startuml
+
+/'
+    execute scan matching
+    input: Scan2D &curScan
+'/
+
+(*) --> "++cnt"
+--> if "spres != nullptr" as if_spres then
+--> [No] if "spana != nullptr" as if_spana then
+else
+if_spres --> [Yes] "resamplePoints(&curScan)"
+--> if_spana
+--> [No] if "cnt == 0" as if_cnt then
+else
+if_spana --> [Yes] "analyzePoints(curScan.lps)"
+--> if_cnt
+--> [No] "Pose2D odoMotion \n Pose2D::calRelativePose(curScan.pose, prevScan.pose, odoMotion)"
+else
+if_cnt --> [Yes] "growMap(curScan, initPose)
+prevScan = curScan
+return(true)"
+--> "Pose2D odoMotion \n Pose2D::calRelativePose(curScan.pose, prevScan.pose, odoMotion)"
+--> "Pose2D lastPose = pcmap->getLastPose()
+Pose2D predPose
+Pose2D::calGlobalPose(odoMotion, lastPose, predPose)"
+--> "const Scan2D *refScan = rsm->makeRefScan()
+estim->setScanPair(&curScan, refScan)"
+--> "Pose2D estPose
+double score = estim->estimatePose(predPose, estPose)
+size_t usedNum = estim->getUsedNum"
+--> "bool successful"
+--> if "score <= scthre && usedNum >= nthre" as if_icp then
+--> [Yes] "successful = true"
+--> if "dgcheck" as if_dg then
+else
+if_dg -> if "successful" as if_suc then
+if_suc --> [No] "estPose = predPose \n pfu->calOdometryCovariance(odoMotion, lastPose, cov)"
+--> "growMap(curScan, estPose)"
+else
+if_suc -> [Yes] "Pose2D fusedPose \n Eigen::Matrix3d fusedCov \n pfu->setRefScan(refScan)"
+-> "double ratio = pfu->fusedPose(&curScan, estPose, odoMotion, lastPose, fusedPose, fusedCov)
+estPose = fusedPose
+cov = fusedCov"
+--> "Eigen::Matrix3d covL
+CovarianceCalculator::rotateCovariance(lastPose, fusedCov, covL, true)"
+--> "Eigen::Matrix3d tcov
+CovarianceCalculator::accumulateCovariance(lastPose, estPose, totalCov, covL, tcov)
+totalCov = tcov"
+--> "growMap(curScan, estPose)"
+if_icp --> [No] "successful = false"
+--> if_dg
+--> [No] if "!successful" as if_no_suc then
+--> [Yes] "estPose = predPose"
+--> "growMap(curScan, estPose)"
+else
+if_no_suc --> [No] "growMap(curScan, estPose)"
+
+@enduml

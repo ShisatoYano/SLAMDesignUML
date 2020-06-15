@@ -55,5 +55,13 @@ if_icp --> [No] "successful = false"
 --> "growMap(curScan, estPose)"
 else
 if_no_suc --> [No] "growMap(curScan, estPose)"
+--> "prevScan = curScan"
+--> "PoseCov pcov(estPose, pfu->ecov)
+poseCovs.emplace_back(pcov)"
+--> "Pose2D estMotion
+Pose2D::calRelativePose(estPose, lastPose, estMotion)
+atd += sqrt(estMotion.tx * estMotion.tx + estMotion.ty * estMotion.ty)"
+--> "return(successful)"
+--> (*)
 
 @enduml

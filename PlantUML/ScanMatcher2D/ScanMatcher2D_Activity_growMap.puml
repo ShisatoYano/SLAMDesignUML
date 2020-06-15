@@ -1,0 +1,8 @@
+@startuml
+
+/'
+    input1: const Scan2D &scan
+    input2: const Pose2D &pose
+'/
+
+@enduml

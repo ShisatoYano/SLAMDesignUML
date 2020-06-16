@@ -5,4 +5,18 @@
     input2: const Pose2D &pose
 '/
 
+(*) --> "const vector<LPoint2D> &lps = scan.lps"
+--> "const double (*R)[2] = pose.Rmat"
+--> "double tx = pose.tx
+double ty = pose.ty"
+--> "vector<LPoint2D> scanG"
+--> if "0 <= size_t i < lps.size()" as for_i then
+--> [Yes] "const LPoint2D &lp = lps[i]"
+--> if "lp.type == ISOLATE" then
+--> [Yes] for_i
+else
+--> [No] "double x = R[0][0] * lp.x + R[0][1] * lp.y + tx"
+else
+for_i -> [No] "pcmap->addPose(pose)"
+
 @enduml

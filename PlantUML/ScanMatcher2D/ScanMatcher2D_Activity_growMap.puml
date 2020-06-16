@@ -15,8 +15,21 @@ double ty = pose.ty"
 --> if "lp.type == ISOLATE" then
 --> [Yes] for_i
 else
---> [No] "double x = R[0][0] * lp.x + R[0][1] * lp.y + tx"
+--> [No] "double x = R[0][0] * lp.x + R[0][1] * lp.y + tx
+double y = R[1][0] * lp.x + R[1][1] * lp.y + ty"
+--> "double nx = R[0][0] * lp.nx + R[0][1] * lp.ny
+double ny = R[1][0] * lp.nx + R[1][1] * lp.ny"
+--> "LPoint2D mlp(cnt, x, y)
+mlp.setNormal(nx, ny)
+mlp.setType(lp.type)
+scanG.emplace_back(mlp)"
+--> for_i
 else
-for_i -> [No] "pcmap->addPose(pose)"
+for_i -> [No] "pcmap->addPose(pose)
+pcmap->addPoints(scanG)
+pcmap->setLastPose(pose)
+pcmap->setLastScan(scan)
+pcmap->makeLocalMap()"
+--> (*)
 
 @enduml

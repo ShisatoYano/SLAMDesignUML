@@ -1,0 +1,36 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class SlamFrontEnd
+{
+    - int cnt
+    - int keyframeSkip
+    - PointCloudMap *pcmap
+    - PoseGraph *pg
+    - ScanMatcher2D *smat
+    - LoopDetector *lpd
+    - SlamBackEnd *sback
+    + SlamFrontEnd() : cnt(0), keyframeSkip(10), smat(nullptr), lpd(nullptr) {pg = new PoseGraph(); sback.setPoseGraph(pg);}
+    + ~SlamFrontEnd(){delete pg;}
+    + void setScanMatcher(ScanMatcher2D *s){smat = s}
+    + void setLoopDetector(LoopDetector *l){lpd = l; lpd->setPoseGraph(pg);}
+    + void setPointCloudMap(PointCloudMap *p){pcmap = p}
+    + void setRefScanMaker(RefScanMaker *r){smat->setRefScanMaker(r)}
+    + PointCloudMap *getPointCloudMap(){return(pcmap)}
+    + PoseGraph *getPoseGraph(){return(pg)}
+    + int getCnt(){return(cnt)}
+    + void setDgCheck(bool p){smat->setDgCheck(p):}
+    + void init()
+    + void process(Scan2D &scan)
+    + bool makeOdometryArc(Pose2D &curPose, const Eigen::Matrix3d &cov)
+    + void countLoopArcs()
+}
+
+SlamFrontEnd o-- PointCloudMap
+SlamFrontEnd o-- ScanMatcher2D
+SlamFrontEnd o-- PoseGraph
+SlamFrontEnd o-- LoopDetector
+SlamFrontEnd o-- SlamBackEnd
+
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+
+/'
+    initialization
+'/
+
+(*) --> "smat->reset()"
+--> "smat->setPointCloudMap(pcmap)"
+--> "sback.setPointCloudMap(pcmap)"
+--> (*)
+
+@enduml

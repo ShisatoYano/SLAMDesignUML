@@ -1,0 +1,42 @@
+@startuml
+
+/'
+    process current scan
+    input: Scan2D &scan
+'/
+
+(*) --> if "cnt == 0" then
+--> [Yes] "init()"
+--> "smat->matchScan(scan)"
+else
+--> [No] "smat->matchScan(scan)"
+--> "Pose2D curPose = pcmap->getLastPose"
+--> if "cnt == 0" as if_cnt_0 then
+--> [No] "Eigen::Matrix3d &cov = smat->getCovariance()
+makeOdometryArc(curPose, cov)"
+--> if "cnt % keyframeSkip == 0" as if_key then
+else
+if_cnt_0 --> [Yes] "pg->addNode(curPose)"
+--> if_key
+--> [No] if "cnt > keyframeSkip \n && cnt%keyframeSkip == 0" as if_cnt_key then
+else
+if_key --> [Yes] if "cnt == 0" then
+--> [Yes] "pcmap->setNthre(i)"
+--> "pcmap->makeGlobalMap()"
+else
+--> [No] "pcmap->setNthre(5)"
+--> "pcmap->makeGlobalMap()"
+--> if_cnt_key
+--> [No] "countLoopArcs()"
+else
+if_cnt_key --> [Yes] "bool flag = lpd->detectLoop(&scan, curPose, cnt)"
+--> if "flag" then
+--> [Yes] "sback.adjustPose()
+sback.remakeMap()"
+--> "countLoopArcs()"
+else
+--> "countLoopArcs()"
+--> "++cnt"
+--> (*)
+
+@enduml

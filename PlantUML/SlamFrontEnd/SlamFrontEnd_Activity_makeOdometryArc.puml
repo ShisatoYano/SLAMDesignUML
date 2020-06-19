@@ -1,0 +1,23 @@
+@startuml
+
+/'
+    input1: Pose2D &curPose
+    input2: const Eigen::Matrix3d &fusedCov
+'/
+
+(*) --> if "pg->nodes.size() == 0" then
+--> [Yes] "return(false)"
+--> (*)
+else
+--> [No] "PoseNode *lastNode = pg->nodes.back()
+PoseNode *curNode = pg->addNode(curPose)"
+--> "Pose2D &lastPose = lastNode->pose
+Pose2D relPose
+Pose2D::calRelativePose(curPose, lastPose, relPose)"
+--> "Eigen::Matrix3d cov
+CovarianceCalculator::rotateCovariance(lastPose, fusedCov, cov, true)
+PoseArc *arc = pg->makeArc(lastNode->nid, curNode->nid, relPose, cov)"
+--> "return(true)"
+--> (*)
+
+@enduml

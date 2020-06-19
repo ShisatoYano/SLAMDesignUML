@@ -1,0 +1,17 @@
+@startuml
+
+(*) --> "vector<PoseArc*> &parcs = pg->arcs"
+--> "int an = 0"
+--> if "0 <= size_t i < parcs.size()" as for_i then
+-> [No] (*)
+else
+--> [Yes] "PoseArc *a = parcs[i]
+PoseNode *src = a->src
+PoseNode *dst = a->dst"
+--> if "src->nid != dst->nid-1"
+--> [Yes] "++an"
+--> for_i
+else
+--> [No] for_i
+
+@enduml

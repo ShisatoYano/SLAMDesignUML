@@ -49,7 +49,7 @@ Each node has a the following content.
 |SlamLauncher|To launch SLAM|
 |SensorDataReader|To read sensor data|
 |MapDrawer|Helper to draw by gnuplot|
-|FrameworkCustomizer|Helper to cutomize program|
+|[FrameworkCustomizer](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/FrameworkCustomizer)|Helper to cutomize program|
 |[SlamFrontEnd](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/SlamFrontEnd)|Frontend process of SLAM|
 |[SlamBackEnd](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/SlamBackEnd)|Backend process of SLAM|
 |[LoopDetector](https://github.com/ShisatoYano/SLAMDesignUML/tree/master/PlantUML/LoopDetector)|To detect loop|

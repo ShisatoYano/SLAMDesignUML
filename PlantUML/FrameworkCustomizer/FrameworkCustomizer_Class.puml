@@ -1,0 +1,64 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class FrameworkCustomizer
+{
+    - RefScanMakerBS rsmBS
+    - RefScanMakerLM rsmLM
+    - DataAssociatorLS dassLS
+    - DataAssociatorGT dassGT
+    - CostFunctionED cfuncED
+    - CostFunctionPD cfuncPD
+    - PoseOptimizerSD poptSD
+    - PoseOptimizerSL poptSL
+    - PointCloudMapBS pcmapBS
+    - PointCloudMapGT pcmapGT
+    - PointCloudMapLP pcmapLP
+    - PointCloudMap *pcmap
+    - LoopDetector lpdDM
+    - LoopDetectorSS lpdSS
+    - ScanPointResampler spres
+    - ScanPointAnalyzer spana
+    - PoseEstimatorICP poest
+    - PoseFuser pfu
+    - ScanMatcher2D smat
+    - SlamFrontEnd *sfront
+    + FrameworkCustomizer() : pcmap(nullptr)
+    + ~FrameworkCustomizer()
+    + void setSlamFrontEnd(SlamFrontEnd *f){sfront = f}
+    + PointCloudMap *getPointCloudMap(){return(pcmap)}
+    + void makeFramework()
+    + void customizeA()
+    + void customizeB()
+    + void customizeC()
+    + void customizeD()
+    + void customizeE()
+    + void customizeF()
+    + void customizeG()
+    + void customizeH()
+    + void customizeI()
+}
+
+FrameworkCustomizer --> MyUtil
+FrameworkCustomizer o-- RefScanMakerBS
+FrameworkCustomizer o-- RefScanMakerLM
+FrameworkCustomizer o-- DataAssociatorLS
+FrameworkCustomizer o-- DataAssociatorGT
+FrameworkCustomizer o-- CostFunctionED
+FrameworkCustomizer o-- CostFunctionPD
+FrameworkCustomizer o-- PoseOptimizerSD
+FrameworkCustomizer o-- PoseOptimizerSL
+FrameworkCustomizer o-- PointCloudMap
+FrameworkCustomizer o-- PointCloudMapBS
+FrameworkCustomizer o-- PointCloudMapGT
+FrameworkCustomizer o-- PointCloudMapLP
+FrameworkCustomizer o-- LoopDetectorSS
+FrameworkCustomizer o-- ScanPointResampler
+FrameworkCustomizer o-- ScanPointAnalyzer
+FrameworkCustomizer o-- PoseEstimatorICP
+FrameworkCustomizer o-- PoseFuser
+FrameworkCustomizer o-- ScanMatcher2D
+FrameworkCustomizer o-- SlamFrontEnd
+
+@enduml

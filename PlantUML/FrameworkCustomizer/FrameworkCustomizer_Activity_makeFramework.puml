@@ -1,0 +1,12 @@
+@startuml
+
+(*) --> "smat.setPoseEstimator(&poest)"
+--> "smat.setPoseFuser(&pfu)"
+--> "lpdSS.setPoseEstimator(&poest)
+lpdSS.setDataAssociator(&dassGT)
+lpdSS.setCostFunction(&cfuncPD)
+lpdSS.setPointCloudMap(&pcmapLP)"
+--> "sfront->setScanMatcher(&smat)"
+--> (*)
+
+@enduml

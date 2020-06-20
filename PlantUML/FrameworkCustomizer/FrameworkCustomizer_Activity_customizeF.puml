@@ -1,0 +1,20 @@
+@startuml
+
+(*) --> "pcmap = &pcmapGT"
+--> "RefScanMaker *rsm = &rsmLM
+DataAssociator *dass = &dassGT
+CostFunction *cfunc = &cfuncPD
+PoseOptimizer *popt = &poptSL
+LoopDetector *lpd = &lpdDM"
+--> "popt->setCostFunction(cfunc)"
+--> "poest.setDataAssociator(dass)
+poest.setPoseOptimizer(popt)"
+--> "pfu.setDataAssociator(dass)"
+--> "smat.setPointCloudMap(pcmap)
+smat.setRefScanMaker(rsm)"
+--> "sfront->setLoopDetector(lpd)
+sfront->setPointCloudMap(pcmap)
+sfront->setDgCheck(false)"
+-->(*)
+
+@enduml

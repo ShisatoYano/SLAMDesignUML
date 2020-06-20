@@ -1,0 +1,33 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class MapDrawer
+{
+    - FILE *gp
+    - double xmin
+    - double xmax
+    - double ymin
+    - double ymax
+    - double aspectR
+    + MapDrawer() : gp(nullptr), xmin(-10), xmax(10), ymin(-10), ymax(10), aspectR(-1.0)
+    + ~MapDrawer(){finishGnuplot()}
+    + void initGnuplot(){gp = _popen("gnuplot", "w"}
+    + void finishGnuplot(){if(gp != nullptr) _pclose(gp)}
+    + void setAspectRatio(double a){aspectR = a}
+    + void setRange(double R){xmin = ymin = -R; xmax = ymax = R;}
+    + void setRange(double xR, double yR){xmin = -xR; xmax = R; ymin = -R; ymax = R;}
+    + void setRange(double xm, double xM, double ym, double yM){xmin = xm; xmax = xM; ymin = ym; ymax = yM;}
+    + void drawMapGp(const PointCloudMap &pcmap)
+    + void drawScanGp(const Scan2D &scan)
+    + void drawTrajectoryGp(const std::vector<Pose2D> &poses)
+    + void drawGp(const std::vector<LPoint2D> &lps, const std::vector<Pose2D>, bool flush=true)
+}
+
+MapDrawer --> MyUtil
+MapDrawer --> LPoint2D
+MapDrawer --> Pose2D
+MapDrawer --> Scan2D
+MapDrawer --> PointCloudMap
+
+@enduml

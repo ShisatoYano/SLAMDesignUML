@@ -1,0 +1,38 @@
+@startuml
+
+/'
+    input1: const vector<LPoint2D> &lps
+    input2: const vector<Pose2D> &poses
+    input3: bool flush
+'/
+
+(*) --> "int step1 = 1"
+--> if "0 <= size_t i < lps.size() \n i+=step1" as for_lps then
+--> [Yes] "const LPoint2D &lp = lps[i]"
+--> "fprintf(gp, '%lf %lf', lp.x, lp.y)"
+--> for_lps
+else
+-> [No] "int step2 = 10"
+--> if "0 <= size_t j < poses.size() \n i+=step2" as for_poses then
+--> [Yes] "const Pose2D &pose = poses[j]"
+--> "const cx = pose.tx
+const cy = pose.ty"
+--> "cs = pose.Rmat[0][0]
+sn = pose.Rmat[1][0]"
+--> "double dd = 0.4
+double x1 = cs * dd
+double y1 = sn * dd
+double x2 = -sn * dd
+double y2 = cs * dd"
+--> "fprintf(gp, '%lf %lf %lf %lf', cx, cy, x1, y1)
+fprintf(gp, '%lf %lf %lf %lf', cx, cy, x2, y2)"
+--> for_poses
+else
+-> [No] "fprintf(gp, 'e')"
+--> if "flush" then
+--> [Yes] "fflush(gp)"
+--> (*)
+else
+--> [No] (*)
+
+@enduml

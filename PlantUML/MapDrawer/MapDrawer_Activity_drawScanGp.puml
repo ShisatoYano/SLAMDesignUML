@@ -1,0 +1,14 @@
+@startuml
+
+/'
+    draw scan point
+    input: Scan2D &scan
+'/
+
+(*) --> "vector<Pose2D> poses"
+--> "Pose2D pose"
+--> "poses.emplace_back(pose)"
+--> "drawGp(scan.lps, poses)"
+--> (*)
+
+@enduml

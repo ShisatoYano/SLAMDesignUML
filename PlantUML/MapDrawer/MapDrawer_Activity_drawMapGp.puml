@@ -1,0 +1,13 @@
+@startuml
+
+/'
+    draw map and trajectory
+    input: const PointCloudMap &pcmap
+'/
+
+(*) --> "const vector<LPoint2D> &lps = pcmap.globalMap"
+--> "const vector<Pose2D> &poses = pcmap.poses"
+--> "drawGp(lps, poses)"
+--> (*)
+
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    draw only trajectory of robot
+'/
+
+(*) --> "vector<LPoint2D> lps"
+--> "drawGp(lps, poses)"
+--> (*)
+
+@enduml

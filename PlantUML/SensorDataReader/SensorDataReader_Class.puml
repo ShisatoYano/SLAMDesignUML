@@ -1,0 +1,23 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class SensorDataReader
+{
+    - int angleOffset
+    - std::ifstream inFile
+    + SensorDataReader() : angleOffset(180)
+    + ~SensorDataReader()
+    + bool openScanFile(const char *filepath){inFile.open(filepath)}
+    + void closeScanFile(){inFile.close()}
+    + void setAngleOffset(int o){angleOffset = o}
+    + bool loadScan(size_t cnt, Scan2D &scan)
+    + bool loadLaserScan(size_t cnt, Scan2D &scan)
+}
+
+SensorDataReader --> MyUtil
+SensorDataReader --> LPoint2D
+SensorDataReader --> Pose2D
+SensorDataReader --> Scan2D
+
+@enduml

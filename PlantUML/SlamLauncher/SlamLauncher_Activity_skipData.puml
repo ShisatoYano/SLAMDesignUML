@@ -1,0 +1,16 @@
+@startuml
+
+/'
+    skip scan data from init to num index
+    input: int num
+'/
+
+(*) --> "Scan2D scan
+bool eof = sreader.loadScan(0, scan)"
+--> if "0 <= int i < num \n && !eof" as for_i then
+--> [Yes] "eof = sreader.loadScan(0, scan)"
+--> for_i
+else
+-> [No] (*)
+
+@enduml

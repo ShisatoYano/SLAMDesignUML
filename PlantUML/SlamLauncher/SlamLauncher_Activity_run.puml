@@ -1,0 +1,41 @@
+@startuml
+
+(*) --> "mdrawer.initGnuplot()
+mdrawer.setAspectRatio(-0.9)"
+--> "size_t cnt = 0"
+--> if "startN > 0" then
+--> [Yes] "skipData(startN)"
+--> "double totalTime = 0, totalTimeDraw = 0, totalTimeRead = 0"
+else
+--> [No] "double totalTime = 0, totalTimeDraw = 0, totalTimeRead = 0"
+--> "Scan2D scan
+bool eof = sreader.loadScan(cnt, scan)
+boost::timer tim"
+--> if "!eof" as while_eof then
+-> [No] "sreader.closeScanFile()"
+--> (*)
+else
+while_eof --> [Yes] if "odometryOnly" as if_odo then
+--> [Yes] if "cnt == 0" as if_cnt then
+--> [Yes] "ipose = scan.pose
+ipose.calRmat()"
+--> "mapByOdometry(&scan)"
+else
+if_cnt --> [No] "mapByOdometry(&scan)"
+--> "double t1 = 1000 * tim.elapsed()"
+else
+if_odo --> [No] "sfront.process(scan)"
+--> "double t1 = 1000 * tim.elapsed()"
+--> if "cnt % drawSkip == 0" then
+--> [Yes] "mdrawer.drawMapGp(*pcmap)"
+--> "double t2 = 1000 * tim.elapsed()"
+else
+--> [No] "double t2 = 1000 * tim.elapsed()"
+--> "++cnt \n eof = sreader.loadScan(cnt, scan)"
+--> "double t3 = 1000 * tim.elapsed()
+totalTime = t3
+totalTimeDraw += (t2 - t1)
+totalTimeRead += (t3 - t2)"
+--> while_eof
+
+@enduml

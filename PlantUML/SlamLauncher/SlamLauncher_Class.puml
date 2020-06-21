@@ -32,5 +32,6 @@ SlamLauncher o-- SlamFrontEnd
 SlamLauncher o-- SlamBackEnd
 SlamLauncher o-- MapDrawer
 SlamLauncher o-- FrameworkCustomizer
+SlamLauncher o-- ScanPointResampler
 
 @enduml

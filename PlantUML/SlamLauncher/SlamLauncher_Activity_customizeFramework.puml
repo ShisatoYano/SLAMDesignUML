@@ -1,0 +1,9 @@
+@startuml
+
+(*) --> "fcustom.setSlamFrontEnd(&sfront)
+fcustom.makeFramework()
+fcustom.customizeI()"
+--> "pcmap = fcustom.getPointCloudMap()"
+--> (*)
+
+@enduml

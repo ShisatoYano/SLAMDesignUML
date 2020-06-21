@@ -1,0 +1,23 @@
+@startuml
+
+(*) --> "mdrawer.initGnuplot()
+mdrawer.setRange(6)
+mdrawer.setAspectRatio(-0.9)"
+--> "ScanPointResampler spres
+size_t cnt = 0"
+--> if "startN > 0" then
+--> [Yes] "skipData(startN)"
+--> "Scan2D scan \n bool eof = sreader.loadScan(cnt, scan)"
+else
+--> [No] "Scan2D scan \n bool eof = sreader.loadScan(cnt, scan)"
+--> if "!eof" as while_eof then
+--> [Yes] "Sleep(100)"
+--> "mdrawer.drawScanGp(scan)"
+--> "eof = sreader.loadScan(cnt, scan)"
+--> "++cnt"
+--> while_eof
+else
+-> [No] "sreader.closeScanFile()"
+--> (*)
+
+@enduml

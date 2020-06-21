@@ -1,0 +1,24 @@
+@startuml
+
+/'
+    construct map by odometry
+    input: Scan2D *scan
+'/
+
+(*) --> "Pose2D pose
+Pose2D::calRelativePose(scan->pose, ipose, pose)"
+--> "vector<LPoint2D> &lps = scan->lps
+vector<LPoint2D> glps"
+--> if "0 <= size_t j < lps.size()" as for_j then
+--> [Yes] "LPoint2D &lp = lps[j]
+LPoint2D glp
+pose.globalPoint(lp, glp)
+glps.emplace_back(glp)"
+--> for_j
+else
+for_j -> [No] "pcmap->addPose(pose)
+pcmap->addPoints(glps)
+pcmap->makeGlobalMap()"
+--> (*)
+
+@enduml

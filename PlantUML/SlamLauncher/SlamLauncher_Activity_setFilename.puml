@@ -1,0 +1,11 @@
+@startuml
+
+/'
+    input: char *filename
+'/
+
+(*) --> "bool flag = sreader.openScanFile(filename)"
+--> "return(flag)"
+--> (*)
+
+@enduml

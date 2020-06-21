@@ -1,0 +1,45 @@
+@startuml
+
+/'
+    read an item from file
+    return true if the item was scan data
+    input1: size_t cnt
+    input2: Scan2D &scan
+'/
+
+(*) --> "string type \n inFile >> type"
+--> if "type == 'LASERSCAN'" as if_scan then
+-> [No] "string line \n getline(inFile, line)"
+--> "return(false)"
+--> (*)
+else
+if_scan --> "scan.setSid(cnt)"
+--> "int sid, sec, nsec \n inFile >> sid >> sec >> nsec"
+--> "vector<LPoint2D> lps
+int pnum
+inFile >> pnum
+lps.reserve(pnum)"
+--> if "0 <= int i < pnum" as for_i then
+-> [No] "scan.setLps(lps)"
+--> "Pose2D &pose = scan.pose
+inFile >> pose.tx >> pose.ty
+double th
+inFile >> th
+pose.setAngle(RAD2DEG(th))
+pose.calRmat()"
+--> "return(true)"
+--> (*)
+else
+for_i --> [Yes] "float angle, range
+inFile >> angle >> range
+angle += angleOffset"
+--> if "range <= Scan2D::MIN_SCAN_RANGE \n || range >= Scan2D::MAX_SCAN_RANGE"
+--> [Yes] for_i
+else
+--> [No] "LPoint2D lp
+lp.setSid(cnt)
+lp.calXY(range, angle)
+lps.emplace_back(lp)"
+--> for_i
+
+@enduml

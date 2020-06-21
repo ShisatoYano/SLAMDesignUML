@@ -1,0 +1,21 @@
+@startuml
+
+/'
+    read single scan data
+    input1: size_t cnt
+    input2: Scan2D &scan
+'/
+
+(*) --> "bool isScan = false"
+--> if "!inFile.eof() && !isScan" as while_f then
+--> [Yes] "isScan = loadLaserScan(cnt, scan)"
+--> while_f
+else
+-> [No] if "isScan"
+--> [Yes] "return(false)"
+--> (*)
+else
+--> [No] "return(true)"
+--> (*)
+
+@enduml

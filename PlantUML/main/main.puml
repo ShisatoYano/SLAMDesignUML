@@ -1,0 +1,67 @@
+@startuml
+
+/'
+    input1: int argc
+    input2: char *argv[]
+'/
+
+(*) --> "bool scanCheck = false
+bool odometryOnly = false"
+--> "char *filename
+int startN = 0"
+--> if "argc < 2" then
+-> [Yes] "Error: too few argument"
+--> "return(1)"
+--> (*)
+else
+--> [No] "int idx = 1"
+--> if "argv[1][0] == '_'" as if_argv then
+--> [Yes] if "1 <= int i" as for_i then
+--> [Yes] "char option = argv[1][i]"
+--> if "option == NULL" as if_opt_null then
+--> [No] if "option == 's'" as if_opt_s then
+--> [No] if "potion == 'o'" as if_opt_o then
+else
+if_opt_s --> [Yes] "scanCheck = true"
+--> for_i
+if_opt_o --> [No] for_i
+else
+if_opt_o --> [Yes] "odometryOnly == true"
+--> for_i
+else
+if_opt_null --> [Yes] if "argc == 2" as if_argc_2 then
+--> [Yes] "Error: no file name"
+--> "return(1)"
+else
+if_argc_2 --> [No] "++idx"
+--> if "argc >= idx + 1" as if_argc_idx1 then
+else
+if_argv --> [No] if_argc_idx1
+--> [Yes] "filename = argv[idx]"
+--> if "argc == idx + 2" as if_argc_idx2 then
+else
+if_argc_idx1--> [No] if_argc_idx2
+--> [Yes] "startN = atoi(argv[idx])"
+--> "SlamLauncher sl"
+else
+if_argc_idx2 -> [No] if "argc >= idx + 2" as if_argc_idx3 then
+--> [No] "SlamLauncher sl"
+else
+if_argc_idx3 --> [Yes] "Error: invalid arguments"
+--> "SlamLauncher sl"
+--> "bool flag = sl.setFilename(filename)"
+--> if "!flag" then
+--> [Yes] "return(1)"
+else
+-> [No] "sl.setStartN(startN)"
+--> if "scanCheck" as if_sc then
+--> [Yes] "sl.showScan()"
+--> "return(0)"
+else
+if_sc --> [No] "sl.setOdometryOnly(odometryOnly)
+sl.customizeFramework()
+sl.run"
+--> "return(0)"
+--> (*)
+
+@enduml

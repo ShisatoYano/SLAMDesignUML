@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+
+usecase (Sensor data) as sd
+usecase (Map Creation \n Data Association \n Loop Detection \n Pose Graph Creation) as fe
+usecase (Map) as m
+usecase (Pose Graph) as pg
+usecase (Pose Adjustment \n Map Modification) as be
+
+sd --> fe
+fe <--> m
+fe <--> pg
+m <--> be
+pg <--> be
+@enduml

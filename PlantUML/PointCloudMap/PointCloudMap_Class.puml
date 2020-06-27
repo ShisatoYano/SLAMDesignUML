@@ -1,7 +1,6 @@
 @startuml
 
-!include ../Pose2D/Pose2D_Class.puml
-!include ../Scan2D/Scan2D_Class.puml
+skinparam classAttributeIconSize 0
 
 class PointCloudMap{
     + {static} const int MAX_POINT_NUM = 1000000

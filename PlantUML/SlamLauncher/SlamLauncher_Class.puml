@@ -29,7 +29,6 @@ class SlamLauncher
 SlamLauncher o-- SensorDataReader
 SlamLauncher o-- PointCloudMap
 SlamLauncher o-- SlamFrontEnd
-SlamLauncher o-- SlamBackEnd
 SlamLauncher o-- MapDrawer
 SlamLauncher o-- FrameworkCustomizer
 SlamLauncher o-- ScanPointResampler

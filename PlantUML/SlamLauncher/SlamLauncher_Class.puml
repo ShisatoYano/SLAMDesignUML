@@ -31,6 +31,5 @@ SlamLauncher o-- PointCloudMap
 SlamLauncher o-- SlamFrontEnd
 SlamLauncher o-- MapDrawer
 SlamLauncher o-- FrameworkCustomizer
-SlamLauncher o-- ScanPointResampler
 
 @enduml

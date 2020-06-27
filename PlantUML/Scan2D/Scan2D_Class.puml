@@ -2,10 +2,6 @@
 
 skinparam classAttributeIconSize 0
 
-!include ../MyUtil/MyUtil_Class.puml
-!include ../LPoint2D/LPoint2D_Class.puml
-!include ../Pose2D/Pose2d_Class.puml
-
 class Scan2D <<struct>>{
     {static} double MAX_SCAN_RANGE = 6 /' [m] '/
     {static} double MIN_SCAN_RANGE = 0.1 /' [m] '/

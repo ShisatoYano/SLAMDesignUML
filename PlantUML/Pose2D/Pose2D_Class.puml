@@ -2,9 +2,6 @@
 
 skinparam classAttributeIconSize 0
 
-!include ../MyUtil/MyUtil_Class.puml
-!include ../LPoint2D/LPoint2D_Class.puml
-
 class Pose2D <<struct>>{
     double tx /' translation x '/
     double ty /' translation y '/
@@ -26,16 +23,7 @@ class Pose2D <<struct>>{
     static void calGlobalPose(const Pose2D &relPose, const Pose2D &bpose, Pose2D &npose);
 }
 
-class PoseCov <<struct>>{
-    Pose2D pose
-    Eigen::Matrix3d cov
-    PoseCov()
-    PoseCov(Pose2D &p, Eigen::Matrix3d &c)
-}
-
 Pose2D --> MyUtil
 Pose2D --> LPoint2D
-
-Pose2D o-- PoseCov
 
 @enduml

@@ -1,6 +1,6 @@
 @startuml
 
-!include ../PointCloudMap/PointCloudMap_Class.puml
+skinparam classAttributeIconSize 0
 
 class RefScanMaker{
     # const PointCloudMap *pcmap
@@ -12,5 +12,6 @@ class RefScanMaker{
 }
 
 RefScanMaker o-- PointCloudMap
+RefScanMaker o-- Scan2D
 
 @enduml

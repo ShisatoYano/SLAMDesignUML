@@ -1,6 +1,6 @@
 @startuml
 
-!include ../../PointCloudMap/PointCloudMap_Class.puml
+skinparam classAttributeIconSize 0
 
 class Submap <<struct>> {
     double atdS
@@ -31,5 +31,8 @@ class PointCloudMapLP{
 
 PointCloudMapLP --|> PointCloudMap
 PointCloudMapLP o-- Submap
+PointCloudMap o-- Pose2D
+PointCloudMap o-- Scan2D
+PointCloudMap o-- LPoint2D
 
 @enduml

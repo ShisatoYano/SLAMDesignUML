@@ -1,6 +1,6 @@
 @startuml
 
-!include ../LPoint2D/LPoint2D_Class.puml
+skinparam classAttributeIconSize 0
 
 class CostFunction{
     - std::vector<const LPoint2D*> curLps /'associated current point cloud'/
@@ -16,6 +16,6 @@ class CostFunction{
     + virtual double calValue(double tx, double ty, double th) = 0
 }
 
-LPoint2D <- CostFunction
+CostFunction --> LPoint2D
 
 @enduml

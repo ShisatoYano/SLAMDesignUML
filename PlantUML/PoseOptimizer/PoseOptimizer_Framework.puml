@@ -20,6 +20,7 @@ class PoseOptimizer{
     # CostFunction *cfunc
 }
 
-PoseOptimizer o-- CostFunction
+PoseOptimizer <|-- PoseOptimizerSD
+PoseOptimizer <|-- PoseOptimizerSL
 
 @enduml

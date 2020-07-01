@@ -1,0 +1,22 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class CostFunction{
+    - std::vector<const LPoint2D*> curLps /'associated current point cloud'/
+    - std::vector<const LPoint2D*> refLps /'associated reference point cloud'/
+    - double evlimit /'matching distance threshold'/
+    - double pnrate /'associated point rate within evlimit'/
+
+    + CostFunction() : evlimit(0), pnrate(0)
+    + ~CostFunction()
+    + setEvlimit(double e) {evlimit = e}
+    + void setPoints(std::vector<const LPoint2D*> &cur, \n std::vector<const LPoint2D*> &ref)
+    + double getPnrate() {return(pnrate)}
+    + virtual double calValue(double tx, double ty, double th) = 0
+}
+
+CostFunction <|-- CostFunctionED
+CostFunction <|-- CostFunctionPD
+
+@enduml

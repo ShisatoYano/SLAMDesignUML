@@ -11,8 +11,7 @@ class DataAssociator{
     + virtual double findCorrespondence(const Scan2D *curScan, const Pose2D &predPose) = 0
 }
 
-DataAssociator --> Scan2D
-DataAssociator --> Pose2D
-DataAssociator o-- LPoint2D
+DataAssociator <|-- DataAssociatorGT
+DataAssociator <|-- DataAssociatorLS
 
 @enduml

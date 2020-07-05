@@ -1,7 +1,6 @@
 @startuml
 
-!include ../MyUtil/MyUtil_Class.puml
-!include ../Pose2D/Pose2d_Class.puml
+skinparam classAttributeIconSize 0
 
 class PoseNode <<struct>>{
     int nid /' node id '/
@@ -51,11 +50,8 @@ class PoseGraph{
     + void printArcs()
 }
 
-PoseNode o- Pose2D
-PoseArc o-- PoseNode
-PoseArc o-- Pose2D
-PoseGraph --> PoseNode
-PoseGraph --> PoseArc
-PoseGraph -> Pose2D
+PoseGraph o-- PoseNode
+PoseGraph o-- PoseArc
+PoseNode o- PoseArc
 
 @enduml

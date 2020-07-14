@@ -1,6 +1,6 @@
 @startuml
 
-!include/../LPoint2D/LPoint2D_Class.puml
+skinparam classAttributeIconSize 0
 
 class ScanPointAnalyzer
 {

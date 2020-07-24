@@ -1,7 +1,6 @@
 @startuml
 
-!include ../../DataAssociator/DataAssociator_Class.puml
-!include ../../NNGridTable/NNGridTable_Class.puml
+skinparam classAttributeIconSize 0
 
 class DataAssociatorGT{
     - NNGridTable nntab
@@ -12,6 +11,6 @@ class DataAssociatorGT{
 }
 
 DataAssociatorGT --|> DataAssociator
-DataAssociatorGT o- NNGridTable
+DataAssociatorGT o-- NNGridTable
 
 @enduml

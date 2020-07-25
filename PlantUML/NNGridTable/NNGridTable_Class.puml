@@ -2,9 +2,6 @@
 
 skinparam classAttributeIconSize 0
 
-!include ../MyUtil/MyUtil_Class.puml
-!include ../Pose2D/Pose2d_Class.puml
-
 class NNGridCell <<struct>>{
     std::vector<const LPoint2D*> lps /' point cloud stored in this cell '/
     void clear() {lps.clear()}

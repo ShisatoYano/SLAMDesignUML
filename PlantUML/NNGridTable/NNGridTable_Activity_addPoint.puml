@@ -14,7 +14,7 @@
 --> if "yi < 0 || yi > 2 * tsize"
     --> [Yes] "return"
     else
-    --> [No] "size_t idx = static_cast<size_t>(yi * (2 * tsize + 1))"
+    --> [No] "size_t idx = static_cast<size_t>(yi * (2 * tsize + xi))"
     endif
 --> "table[idx].lps.push_back(lp)"
 --> (*)

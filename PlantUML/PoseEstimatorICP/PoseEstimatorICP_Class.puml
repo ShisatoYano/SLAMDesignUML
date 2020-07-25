@@ -1,7 +1,6 @@
 @startuml
 
-!include ../PoseOptimizer/PoseOptimizer_Class.puml
-!include ../DataAssociator/DataAssociator_Class.puml
+skinparam classAttributeIconSize 0
 
 class PoseEstimatorICP{
     - const Scan2D *curScan

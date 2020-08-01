@@ -1,7 +1,6 @@
 @startuml
 
-!include ../DataAssociator/DataAssociator_Class.puml
-!include ../CovarianceCalculator/CovarianceCalculator_Class.puml
+skinparam classAttributeIconSize 0
 
 class PoseFuser{
     + Eigen::Matrix3d ecov
